@@ -1,0 +1,10 @@
+<div>
+  <button mat-icon-button [matMenuTriggerFor]="subMenu" color="primary">
+    <mat-icon>more_horiz</mat-icon>
+  </button>
+</div>
+
+<mat-menu #subMenu="matMenu">
+  <ng-content></ng-content>
+</mat-menu>
+<div>

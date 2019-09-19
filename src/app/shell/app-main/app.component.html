@@ -1,0 +1,10 @@
+<app-app-navigation class="main-container">
+  <main>
+    <div *ngIf="showLoadingIndicator$ | async">
+      <mat-progress-bar class="toolbar-loading" mode="indeterminate" color="warn">
+      </mat-progress-bar>
+    </div>
+    <router-outlet>
+    </router-outlet>
+  </main>
+</app-app-navigation>

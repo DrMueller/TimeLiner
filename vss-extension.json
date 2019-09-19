@@ -1,0 +1,66 @@
+{
+  "manifestVersion": 1,
+  "id": "DrMueller2-TimeLiner",
+  "publisher": "DrMueller2",
+  "version": "__BuildVersion__",
+  "name": "Time Liner",
+  "description": "A small app to show Work Items in a calendar",
+  "public": false,
+  "icons": {
+    "default": "src/assets/M_256.png"
+  },
+  "categories": [
+    "Azure Boards"
+  ],
+  "content": {
+    "details": {
+      "path": "overview.md"
+    }
+  },
+  "targets": [
+    {
+      "id": "Microsoft.VisualStudio.Services"
+    }
+  ],
+  "contributions": [
+    {
+      "id": "TimeLinerHub",
+      "type": "ms.vss-web.hub",
+      "targets": [
+        "ms.vss-work-web.work-hub-group"
+      ],
+      "properties": {
+        "name": "TimeLiner Hub",
+        "uri": "vss/hubs/time-liner.html",
+        "iconAsset": "DrMueller2.TimeLiner/assets/M_98.png",
+        "_sharedData": {
+          "assets": [
+            "DrMueller2.TimeLiner/assets/M_98.png"
+          ]
+        }
+      }
+    }
+  ],
+  "files": [
+    {
+      "path": "dist",
+      "addressable": true,
+      "packagePath": "angular-app"
+    },
+    {
+      "path": "src/vss",
+      "addressable": true,
+      "packagePath": "vss"
+    },
+    {
+      "path": "src/assets",
+      "addressable": true,
+      "packagePath": "assets"
+    },
+    {
+      "path": "node_modules/vss-web-extension-sdk/lib",
+      "addressable": true,
+      "packagePath": "lib"
+    }
+  ]
+}

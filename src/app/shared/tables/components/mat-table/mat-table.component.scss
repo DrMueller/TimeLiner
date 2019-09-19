@@ -1,0 +1,36 @@
+table {
+  width: 100%;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+
+.top-area-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.top-area-item {
+  flex-basis: auto;
+}
+
+.top-area-item-right {
+  margin-left: auto;
+}
+
+.row-item:hover,
+.row-item:active {
+  background-color: darken(rgb(255, 255, 255), 10%);
+}
+
+.header-multi-selection {
+  cursor: pointer;
+}
+
+.selected-row {
+  width: 90px;
+}

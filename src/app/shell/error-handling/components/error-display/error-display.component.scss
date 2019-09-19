@@ -1,0 +1,30 @@
+.actions {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .flex-row {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+  }
+  
+  .flex-columns {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .desc {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 10px;
+    width: 100px;
+  }
+  
+  .error-message {
+    min-width: 250px;
+    max-width: 450px;
+    min-height: 250px;
+    max-height: 450px;
+  }

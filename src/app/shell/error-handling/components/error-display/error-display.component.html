@@ -1,0 +1,23 @@
+<h1 mat-dialog-title>
+  {{ 'shell.error-handling.components.error-display.errorDialogHeading' | translate }}
+</h1>
+
+<div class="flex-columns">
+  <div mat-dialog-content>
+    <div class="flex-row">
+      <label class="desc"> {{ 'shell.error-handling.components.error-display.errorName' | translate }}</label>
+      <label>{{ errorInfo.errorName }} </label>
+    </div>
+
+    <div class="flex-row">
+      <label class="desc"> {{ 'shell.error-handling.components.error-display.errorMessage' | translate }}</label>
+      <textarea class="error-message" readonly>{{ errorInfo.errorMessage }}</textarea>
+    </div>
+  </div>
+</div>
+
+<div class="actions">
+  <div mat-dialog-actions>
+    <button mat-stroked-button [mat-dialog-close]="true" cdkFocusInitial>OK</button>
+  </div>
+</div>
