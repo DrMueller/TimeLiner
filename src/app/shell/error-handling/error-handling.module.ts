@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { ErrorHandler, ModuleWithProviders, NgModule } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
 
 import { MatDependenciesModule } from '../../mat-deps';
 
@@ -16,8 +15,7 @@ import { CustomErrorHandlerService } from './services';
   ],
   imports: [
     CommonModule,
-    MatDependenciesModule,
-    TranslateModule
+    MatDependenciesModule
   ]
 })
 export class ErrorHandlingModule {

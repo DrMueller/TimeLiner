@@ -1,16 +1,16 @@
 <h1 mat-dialog-title>
-  {{ 'shell.error-handling.components.error-display.errorDialogHeading' | translate }}
+  Error Ho!
 </h1>
 
 <div class="flex-columns">
   <div mat-dialog-content>
     <div class="flex-row">
-      <label class="desc"> {{ 'shell.error-handling.components.error-display.errorName' | translate }}</label>
+      <label class="desc">Name:</label>
       <label>{{ errorInfo.errorName }} </label>
     </div>
 
     <div class="flex-row">
-      <label class="desc"> {{ 'shell.error-handling.components.error-display.errorMessage' | translate }}</label>
+      <label class="desc">Message:</label>
       <textarea class="error-message" readonly>{{ errorInfo.errorMessage }}</textarea>
     </div>
   </div>

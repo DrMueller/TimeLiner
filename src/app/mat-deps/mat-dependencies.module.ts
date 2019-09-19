@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ModuleWithProviders, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import {
   MatButtonModule, MatCardModule, MatCheckboxModule,
   MatDatepickerModule, MatDialogModule,
@@ -8,7 +8,6 @@ import {
   MatMenuModule, MatPaginatorModule, MatProgressBarModule,
   MatProgressSpinnerModule, MatRadioModule, MatSidenavModule, MatSnackBarModule, MatSortModule, MatTableModule, MatToolbarModule
 } from '@angular/material';
-import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MatMomentDateModule } from '@angular/material-moment-adapter';
 
 @NgModule({
   declarations: [],
@@ -26,7 +25,6 @@ import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MatMomentDateModule } from '@angular/m
     MatFormFieldModule,
     MatListModule,
     MatMenuModule,
-    MatMomentDateModule,
     MatPaginatorModule,
     MatSortModule,
     MatProgressBarModule,
@@ -39,14 +37,4 @@ import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MatMomentDateModule } from '@angular/m
   ]
 })
 export class MatDependenciesModule {
-  public static forRoot(): ModuleWithProviders {
-    return {
-      ngModule: MatDependenciesModule,
-      providers: [
-        {
-          provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true }
-        }
-      ]
-    };
-  }
 }
