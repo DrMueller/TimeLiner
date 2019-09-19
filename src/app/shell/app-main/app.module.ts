@@ -2,7 +2,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DisplayModule } from 'src/app/areas/display';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { CalendarComponent } from 'src/app/areas/components/calendar';
+import { OverviewComponent } from 'src/app/areas/components/overview';
 import { MatDependenciesModule } from 'src/app/mat-deps';
 import { BusyIndicationModule } from 'src/app/shared/busy-indication/busy-indication.module';
 
@@ -12,7 +14,9 @@ import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    OverviewComponent,
+    CalendarComponent
   ],
   imports: [
     BrowserModule,
@@ -20,8 +24,8 @@ import { AppComponent } from './app.component';
     BusyIndicationModule,
     ErrorHandlingModule.forRoot(),
     HttpClientModule,
-    MatDependenciesModule,
-    DisplayModule,
+    FullCalendarModule,
+    MatDependenciesModule
   ],
   bootstrap: [AppComponent]
 })

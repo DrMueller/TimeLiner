@@ -27,6 +27,9 @@
     "typeRoots": [
       "node_modules/@types"
     ],
+    "types": [
+      "vss-web-extension-sdk"
+    ],
     "lib": [
       "es2018",
       "dom"
