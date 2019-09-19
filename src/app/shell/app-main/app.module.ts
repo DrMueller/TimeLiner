@@ -21,7 +21,7 @@ import { AppComponent } from './app.component';
     ErrorHandlingModule.forRoot(),
     HttpClientModule,
     MatDependenciesModule,
-    DisplayModule
+    DisplayModule,
   ],
   bootstrap: [AppComponent]
 })

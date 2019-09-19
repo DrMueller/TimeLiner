@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { FullCalendarModule } from '@fullcalendar/angular';
 import { MatDependenciesModule } from 'src/app/mat-deps';
 
 import { OverviewComponent } from './components/overview';
@@ -11,7 +12,8 @@ import { OverviewComponent } from './components/overview';
   ],
   imports: [
     CommonModule,
-    MatDependenciesModule
+    MatDependenciesModule,
+    FullCalendarModule
   ]
 })
 export class DisplayModule { }
