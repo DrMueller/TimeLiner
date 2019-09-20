@@ -9,4 +9,4 @@ resources:
     endpoint: GitHub-DrMueller
 
 jobs:
-- template: AzureDevOps/Templates/JobTemplates/Angular/Build_And_Publish_AzureDevOps_Extension.yaml@ALMStuff
+- template: AzureDevOps/BuildTemplates/Angular/Jobs/Build_And_Publish_AzureDevOps_Extension.yaml@ALMStuff
