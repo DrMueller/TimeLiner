@@ -1,0 +1,5 @@
+<mat-select [(ngModel)]="selectedQuery">
+  <mat-option *ngFor="let query of queries" [value]="query.id">
+    {{query.name}}
+  </mat-option>
+</mat-select>

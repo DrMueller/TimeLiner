@@ -1,0 +1,11 @@
+.config-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  background: yellow;
+}
+
+.config-container-item {
+  margin-left: 10px;
+}
