@@ -3,7 +3,7 @@
   "id": "DrMueller2-TimeLiner",
   "publisher": "DrMueller2",
   "version": "__BuildVersion__",
-  "name": "Time Liner",
+  "name": "TimeLiner",
   "description": "A small app to show Work Items in a calendar",
   "public": false,
   "icons": {
@@ -30,7 +30,7 @@
         "ms.vss-work-web.work-hub-group"
       ],
       "properties": {
-        "name": "TimeLiner Hub",
+        "name": "TimeLiner",
         "uri": "vss/hubs/time-liner.html",
         "iconAsset": "DrMueller2.TimeLiner/assets/M_98.png",
         "_sharedData": {
