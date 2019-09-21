@@ -7,13 +7,13 @@ function initialize(explicitNotifyLoaded, usePlatformStyles, usePlatformScripts,
         });
 
         VSS.ready(function () {
-            appendScript('../../angular-app/runtime.js');
-            appendScript('../../angular-app/es2015-polyfills.js');
-            appendScript('../../angular-app/polyfills.js');
+            appendScript('../../angular-app/runtime-es5.js');
+            appendScript('../../angular-app/runtime-es2015.js');
+            appendScript('../../angular-app/polyfills-es5.js');
+            appendScript('../../angular-app/polyfills-es2015.js');
             appendScript('../../angular-app/styles.js');
-            appendScript('../../angular-app/runtime.js');
-            appendScript('../../angular-app/vendor.js');
-            appendScript('../../angular-app/main.js');
+            appendScript('../../angular-app/main-es5.js');
+            appendScript('../../angular-app/main-es2015.js');
 
             if (afterSdkReadyCallback) {
                 afterSdkReadyCallback();
