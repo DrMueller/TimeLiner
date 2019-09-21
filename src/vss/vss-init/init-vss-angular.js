@@ -7,18 +7,12 @@ function initialize(explicitNotifyLoaded, usePlatformStyles, usePlatformScripts,
     });
 
     VSS.ready(function () {
-      if (checkIfBrowserSupportsEs2015()) {
-        appendScript('../../angular-app/polyfills-es2015.js');
-        appendScript('../../angular-app/styles-es2015.js');
-        appendScript('../../angular-app/runtime-es2015.js');
-        appendScript('../../angular-app/vendor-es2015.js');
-        appendScript('../../angular-app/main-es2015.js');
+      const isProd = false;
+
+      if (isProd) {
+        appendProductionScripts();
       } else {
-        appendScript('../../angular-app/polyfills-es5.js');
-        appendScript('../../angular-app/styles-es5.js');
-        appendScript('../../angular-app/runtime-es5.js');
-        appendScript('../../angular-app/vendor-es5.js');
-        appendScript('../../angular-app/main-es5.js');
+        appendNonProductionScripts();
       }
 
       if (afterSdkReadyCallback) {
@@ -36,6 +30,34 @@ function initialize(explicitNotifyLoaded, usePlatformStyles, usePlatformScripts,
       return false;
     }
   };
+
+  function appendProductionScripts() {
+    if (checkIfBrowserSupportsEs2015()) {
+      appendScript('../../angular-app/polyfills-es2015.js');
+      appendScript('../../angular-app/runtime-es2015.js');
+      appendScript('../../angular-app/main-es2015.js');
+    } else {
+      appendScript('../../angular-app/polyfills-es5.js');
+      appendScript('../../angular-app/runtime-es5.js');
+      appendScript('../../angular-app/main-es5.js');
+    }
+  }
+
+  function appendNonProductionScripts() {
+    if (checkIfBrowserSupportsEs2015()) {
+      appendScript('../../angular-app/polyfills-es2015.js');
+      appendScript('../../angular-app/styles-es2015.js');
+      appendScript('../../angular-app/runtime-es2015.js');
+      appendScript('../../angular-app/vendor-es2015.js');
+      appendScript('../../angular-app/main-es2015.js');
+    } else {
+      appendScript('../../angular-app/polyfills-es5.js');
+      appendScript('../../angular-app/styles-es5.js');
+      appendScript('../../angular-app/runtime-es5.js');
+      appendScript('../../angular-app/vendor-es5.js');
+      appendScript('../../angular-app/main-es5.js');
+    }
+  }
 
   function appendScript(scriptSource) {
     const scriptTag = document.createElement('script');
