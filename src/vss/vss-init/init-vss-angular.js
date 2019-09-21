@@ -44,14 +44,14 @@ function initialize(callerElement, explicitNotifyLoaded, usePlatformStyles, useP
   };
 
   function appendScript(scriptSource) {
-    let scriptTag = document.createElement('script');
+    const scriptTag = document.createElement('script');
     scriptTag.src = scriptSource;
-    callerElement.head.appendChild(scriptTag);
+    document.head.appendChild(scriptTag);
     return scriptTag;
   }
 
   function appendStyle(styleSource) {
-    let styleTag = document.createElement('link');
+    const styleTag = document.createElement('link');
     styleTag.rel = 'stylesheet';
     styleTag.href = styleSource;
 
