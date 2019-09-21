@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FullCalendarModule } from '@fullcalendar/angular';
-import CalendarComponent from '@fullcalendar/core/CalendarComponent';
+import { CalendarComponent } from 'src/app/areas/components/calendar';
 import { ConfigComponent } from 'src/app/areas/components/config';
 import { OverviewComponent } from 'src/app/areas/components/overview';
 import { QuerySelectComponent } from 'src/app/areas/components/query-select';

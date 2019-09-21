@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import dayGridPlugin from '@fullcalendar/daygrid';
 
 import { CalendarEvent } from '../../models';
 import { CalendarEventRepo } from '../../repos';
@@ -10,6 +11,7 @@ import { CalendarEventRepo } from '../../repos';
 })
 export class CalendarComponent implements OnInit {
   public events: CalendarEvent[] = [];
+  public   calendarPlugins = [dayGridPlugin];
 
   public constructor(private eventRepo: CalendarEventRepo) { }
 
