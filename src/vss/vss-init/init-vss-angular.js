@@ -8,7 +8,6 @@ function initialize(explicitNotifyLoaded, usePlatformStyles, usePlatformScripts,
 
     VSS.ready(function () {
       const isProd = false;
-
       if (isProd) {
         appendProductionScripts();
       } else {
