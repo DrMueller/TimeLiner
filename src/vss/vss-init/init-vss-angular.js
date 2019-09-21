@@ -11,7 +11,7 @@ function initialize(explicitNotifyLoaded, usePlatformStyles, usePlatformScripts,
             appendScript('../../angular-app/runtime-es2015.js');
             appendScript('../../angular-app/polyfills-es5.js');
             appendScript('../../angular-app/polyfills-es2015.js');
-            appendScript('../../angular-app/styles.js');
+            appendScript('../../angular-app/styles.css');
             appendScript('../../angular-app/main-es5.js');
             appendScript('../../angular-app/main-es2015.js');
 
