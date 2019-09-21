@@ -18,7 +18,7 @@ export class CalendarEventRepo {
 
     const data = this
       .workItemRepo
-      .loadAll('tra')
+      .loadAllAsync('tra')
       .map(wi => new CalendarEvent(wi.title, wi.date!, wi.date!));
 
     return Promise.resolve(data);

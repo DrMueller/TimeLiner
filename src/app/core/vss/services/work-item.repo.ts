@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { CommonMethods4To5 } from 'TFS/WorkItemTracking/RestClient';
 
 import { WorkItem } from '../models';
 
@@ -7,10 +8,14 @@ import { WorkItem } from '../models';
 })
 
 export class WorkItemRepo {
-  public loadAll(dateFieldName: string): WorkItem[] {
-    // VSS.require(['VSS/Service', 'TFS/WorkItemTracking/RestClient'], function (VSS_Service: any, TFS_Wit_WebApi: any) {
-    //   const witClient = VSS_Service.getCollectionClient(TFS_Wit_WebApi.WorkItemTrackingHttpClient);
-    // });
+  public loadAllAsync(dateFieldName: string): WorkItem[] {
+    VSS.require(['VSS/Service', 'TFS/WorkItemTracking/RestClient'], async (VSS_Service: any, TFS_Wit_WebApi: any) => {
+      // tslint:disable-next-line: no-debugger
+      debugger;
+      const witClient = <CommonMethods4To5>VSS_Service.getCollectionClient(TFS_Wit_WebApi.WorkItemTrackingHttpClient);
+      const tra = await witClient.getWorkItems([424, 1074]);
+      return tra;
+    });
 
     console.log(dateFieldName);
 
