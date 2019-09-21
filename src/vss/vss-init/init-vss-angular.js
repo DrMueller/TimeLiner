@@ -1,6 +1,4 @@
-function initialize(callerElementId, explicitNotifyLoaded, usePlatformStyles, usePlatformScripts, afterSdkReadyCallback) {
-  const parentElement = document.getElementById(callerElementId);
-
+function initialize(explicitNotifyLoaded, usePlatformStyles, usePlatformScripts, afterSdkReadyCallback) {
   appendScript('../../lib/VSS.SDK.min.js').onload = function () {
     VSS.init({
       explicitNotifyLoaded: explicitNotifyLoaded || false,
@@ -9,8 +7,6 @@ function initialize(callerElementId, explicitNotifyLoaded, usePlatformStyles, us
     });
 
     VSS.ready(function () {
-      appendStyle('../../angular-app/styles.css');
-
       if (checkIfBrowserSupportsEs2015()) {
         appendScript('../../angular-app/runtime-es2015.js');
         appendScript('../../angular-app/polyfills-es2015.js');
@@ -40,17 +36,7 @@ function initialize(callerElementId, explicitNotifyLoaded, usePlatformStyles, us
   function appendScript(scriptSource) {
     const scriptTag = document.createElement('script');
     scriptTag.src = scriptSource;
-    debugger;
-    parentElement.head.appendChild(scriptTag);
+    document.head.appendChild(scriptTag);
     return scriptTag;
-  }
-
-  function appendStyle(styleSource) {
-    const styleTag = document.createElement('link');
-    styleTag.rel = 'stylesheet';
-    styleTag.href = styleSource;
-    debugger;
-
-    parentElement.head.appendChild(styleTag);
   }
 };
