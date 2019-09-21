@@ -14,15 +14,15 @@ export class WorkItemRepo {
   public loadAllAsync(dateFieldName: string): Promise<WorkItem[]> {
     return new Promise((resolve: (value?: WorkItem[]) => void, _: any) => {
       VSS.require(['VSS/Service', 'TFS/WorkItemTracking/RestClient'], async (VSS_Service: any, TFS_Wit_WebApi: any) => {
-        // tslint:disable-next-line: no-debugger
         try {
           const witClient = <CommonMethods4To5>VSS_Service.getCollectionClient(TFS_Wit_WebApi.WorkItemTrackingHttpClient);
-          debugger;
           const nativeWorkItems = await witClient.getWorkItems([424, 1074]);
+          // tslint:disable-next-line: no-debugger
           debugger;
           const workItems = nativeWorkItems.map(nw => new WorkItem(nw.id, nw.fields['title'], nw.fields['date']));
           resolve(workItems);
         } catch (er) {
+          // tslint:disable-next-line: no-debugger
           debugger;
           console.log(er);
         }
@@ -35,6 +35,6 @@ export class WorkItemRepo {
       //   new WorkItem(2, 'title  2', new Date(Date.now())),
       //   new WorkItem(3, 'title  3', new Date(Date.now()))
       // ];
-    })
+    });
   }
 }
