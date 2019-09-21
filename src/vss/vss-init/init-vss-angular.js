@@ -8,15 +8,17 @@ function initialize(explicitNotifyLoaded, usePlatformStyles, usePlatformScripts,
 
     VSS.ready(function () {
       if (checkIfBrowserSupportsEs2015()) {
-        appendScript('../../angular-app/runtime-es2015.js');
         appendScript('../../angular-app/polyfills-es2015.js');
-        appendScript('../../angular-app/main-es2015.js');
         appendScript('../../angular-app/styles-es2015.js');
+        appendScript('../../angular-app/runtime-es2015.js');
+        appendScript('../../angular-app/vendor-es2015.js');
+        appendScript('../../angular-app/main-es2015.js');
       } else {
-        appendScript('../../angular-app/runtime-es5.js');
-        appendScript('../../angular-app/main-es5.js');
         appendScript('../../angular-app/polyfills-es5.js');
         appendScript('../../angular-app/styles-es5.js');
+        appendScript('../../angular-app/runtime-es5.js');
+        appendScript('../../angular-app/vendor-es5.js');
+        appendScript('../../angular-app/main-es5.js');
       }
 
       if (afterSdkReadyCallback) {
