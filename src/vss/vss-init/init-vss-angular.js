@@ -1,5 +1,5 @@
-function initialize(callerElement, explicitNotifyLoaded, usePlatformStyles, usePlatformScripts, afterSdkReadyCallback) {
-  const parentElement = document.getElementById('app-entry');
+function initialize(callerElementId, explicitNotifyLoaded, usePlatformStyles, usePlatformScripts, afterSdkReadyCallback) {
+  const parentElement = document.getElementById(callerElementId);
 
   appendScript('../../lib/VSS.SDK.min.js').onload = function () {
     VSS.init({
