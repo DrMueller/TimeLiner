@@ -1,4 +1,6 @@
 function initialize(callerElement, explicitNotifyLoaded, usePlatformStyles, usePlatformScripts, afterSdkReadyCallback) {
+  const parentElement = document.getElementById('app-entry');
+
   appendScript('../../lib/VSS.SDK.min.js').onload = function () {
     VSS.init({
       explicitNotifyLoaded: explicitNotifyLoaded || false,
@@ -7,14 +9,6 @@ function initialize(callerElement, explicitNotifyLoaded, usePlatformStyles, useP
     });
 
     VSS.ready(function () {
-      const tra = document.getElementById('app-entry');
-      debugger;
-      let styleTag = document.createElement('link');
-      styleTag.rel = 'stylesheet';
-      styleTag.href = styleSource;
-
-      tra.head.appendChild(styleTag);
-
       appendStyle('../../angular-app/styles.css');
 
       if (checkIfBrowserSupportsEs2015()) {
@@ -46,7 +40,8 @@ function initialize(callerElement, explicitNotifyLoaded, usePlatformStyles, useP
   function appendScript(scriptSource) {
     const scriptTag = document.createElement('script');
     scriptTag.src = scriptSource;
-    document.head.appendChild(scriptTag);
+    debugger;
+    parentElement.head.appendChild(scriptTag);
     return scriptTag;
   }
 
@@ -54,7 +49,8 @@ function initialize(callerElement, explicitNotifyLoaded, usePlatformStyles, useP
     const styleTag = document.createElement('link');
     styleTag.rel = 'stylesheet';
     styleTag.href = styleSource;
+    debugger;
 
-    callerElement.head.appendChild(styleTag);
+    parentElement.head.appendChild(styleTag);
   }
 };
