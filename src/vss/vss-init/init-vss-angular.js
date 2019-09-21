@@ -7,6 +7,8 @@ function initialize(explicitNotifyLoaded, usePlatformStyles, usePlatformScripts,
     });
 
     VSS.ready(function () {
+      appendStyle('../../angular-app/styles.css');
+
       if (checkIfBrowserSupportsEs2015()) {
         appendScript('../../angular-app/runtime-es2015.js');
         appendScript('../../angular-app/polyfills-es2015.js');
@@ -16,8 +18,6 @@ function initialize(explicitNotifyLoaded, usePlatformStyles, usePlatformScripts,
         appendScript('../../angular-app/main-es5.js');
         appendScript('../../angular-app/polyfills-es5.js');
       }
-
-      appendScript('../../angular-app/styles.css');
 
       if (afterSdkReadyCallback) {
         afterSdkReadyCallback();
@@ -41,5 +41,11 @@ function initialize(explicitNotifyLoaded, usePlatformStyles, usePlatformScripts,
     scriptTag.src = scriptSource;
     document.head.appendChild(scriptTag);
     return scriptTag;
+  }
+
+  function appendStyle(styleSource) {
+    let styleTag = document.createElement('link');
+    styleTag.rel = 'stylesheet';
+    styleTag.href = styleSource;
   }
 };
