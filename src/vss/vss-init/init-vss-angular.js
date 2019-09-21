@@ -7,6 +7,14 @@ function initialize(callerElement, explicitNotifyLoaded, usePlatformStyles, useP
     });
 
     VSS.ready(function () {
+      const tra = document.getElementById('app-entry');
+      debugger;
+      let styleTag = document.createElement('link');
+      styleTag.rel = 'stylesheet';
+      styleTag.href = styleSource;
+
+      tra.head.appendChild(styleTag);
+
       appendStyle('../../angular-app/styles.css');
 
       if (checkIfBrowserSupportsEs2015()) {
