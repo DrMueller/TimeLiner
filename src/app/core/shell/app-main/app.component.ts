@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { BusyIndicatorService } from '../../core/loading-indication/services';
+import { BusyIndicatorService } from '../../loading-indication/services';
 
 @Component({
   selector: 'app-root',

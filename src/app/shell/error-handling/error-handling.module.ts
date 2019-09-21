@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ErrorHandler, ModuleWithProviders, NgModule } from '@angular/core';
 
-import { MatDependenciesModule } from '../../../mat-deps';
+import { MatDependenciesModule } from '../../mat-deps';
 
 import { ErrorDisplayComponent } from './components/error-display';
 import { CustomErrorHandlerService } from './services';
