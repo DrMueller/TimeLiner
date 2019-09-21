@@ -16,6 +16,6 @@ export class CalendarComponent implements OnInit {
   public constructor(private eventRepo: CalendarEventRepo) { }
 
   public ngOnInit(): void {
-    this.eventRepo.loadAllEvents().then(ev => this.events = ev);
+    this.eventRepo.loadAllEventsAsync().then(ev => this.events = ev);
   }
 }

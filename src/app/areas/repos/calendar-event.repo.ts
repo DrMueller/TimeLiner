@@ -11,16 +11,9 @@ export class CalendarEventRepo {
   public constructor(private workItemRepo: WorkItemRepo) {
   }
 
-  public loadAllEvents(): Promise<CalendarEvent[]> {
-    // const mock = [
-    //   new CalendarEvent('Event 1', new Date(2019, 9, 8), new Date(2019, 9, 8))
-    // ];
-
-    const data = this
-      .workItemRepo
-      .loadAllAsync('tra')
-      .map(wi => new CalendarEvent(wi.title, wi.date!, wi.date!));
-
-    return Promise.resolve(data);
+  public async loadAllEventsAsync(): Promise<CalendarEvent[]> {
+    const workItems = await this.workItemRepo.loadAllAsync('tra');
+    const calendarEvents = workItems.map(wi => new CalendarEvent(wi.title, wi.date!, wi.date!));
+    return calendarEvents;
   }
 }
