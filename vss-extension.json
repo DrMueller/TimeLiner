@@ -6,9 +6,6 @@
   "name": "TimeLiner",
   "description": "A small app to show Work Items in a calendar",
   "public": false,
-  "icons": {
-    "default": "assets/M_256.png"
-  },
   "categories": [
     "Azure Boards"
   ],
