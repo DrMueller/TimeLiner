@@ -18,5 +18,4 @@ export class CalendarComponent implements OnInit {
   public ngOnInit(): void {
     this.eventRepo.loadAllEvents().then(ev => this.events = ev);
   }
-
 }
