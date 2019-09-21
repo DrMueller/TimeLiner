@@ -1,4 +1,4 @@
-function initialize(explicitNotifyLoaded, usePlatformStyles, usePlatformScripts, afterSdkReadyCallback) {
+function initialize(callerElement, explicitNotifyLoaded, usePlatformStyles, usePlatformScripts, afterSdkReadyCallback) {
   appendScript('../../lib/VSS.SDK.min.js').onload = function () {
     VSS.init({
       explicitNotifyLoaded: explicitNotifyLoaded || false,
@@ -23,7 +23,6 @@ function initialize(explicitNotifyLoaded, usePlatformStyles, usePlatformScripts,
         afterSdkReadyCallback();
       }
     });
-
   };
 
   function checkIfBrowserSupportsEs2015() {
@@ -39,7 +38,7 @@ function initialize(explicitNotifyLoaded, usePlatformStyles, usePlatformScripts,
   function appendScript(scriptSource) {
     let scriptTag = document.createElement('script');
     scriptTag.src = scriptSource;
-    document.head.appendChild(scriptTag);
+    callerElement.head.appendChild(scriptTag);
     return scriptTag;
   }
 
@@ -47,5 +46,7 @@ function initialize(explicitNotifyLoaded, usePlatformStyles, usePlatformScripts,
     let styleTag = document.createElement('link');
     styleTag.rel = 'stylesheet';
     styleTag.href = styleSource;
+
+    callerElement.head.appendChild(styleTag);
   }
 };
