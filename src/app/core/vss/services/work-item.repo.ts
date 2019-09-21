@@ -30,6 +30,5 @@ export class WorkItemRepo {
       //   new WorkItem(3, 'title  3', new Date(Date.now()))
       // ];
     });
-
   }
 }
