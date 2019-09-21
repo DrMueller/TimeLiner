@@ -1,11 +1,14 @@
 {
   "manifestVersion": 1,
-  "id": "DrMueller2-TimeLiner",
+  "id": "TimeLiner",
   "publisher": "DrMueller2",
   "version": "__BuildVersion__",
   "name": "TimeLiner",
   "description": "A small app to show Work Items in a calendar",
   "public": false,
+  "icons": {
+    "default": "src/assets/M_256.png"
+  },
   "categories": [
     "Azure Boards"
   ],
