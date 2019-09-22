@@ -29,6 +29,7 @@ export class WorkItemRepo {
               console.log(tra);
               // tslint:disable-next-line: no-debugger
             } catch (er) {
+              // tslint:disable-next-line: no-debugger
               debugger;
               console.log(er);
             }
