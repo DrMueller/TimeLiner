@@ -12,80 +12,36 @@ import { WorkItem } from '../models';
 export class WorkItemRepo {
   public loadAllAsync(dateFieldName: string): Promise<WorkItem[]> {
     return new Promise((resolve: (value?: WorkItem[]) => void, _: any) => {
-      VSS.require(
-        ['ReleaseManagement/Core/RestClient',
-          'ReleaseManagement/Core/Contracts'], (TFS_RM_RestClient: any, contracts: any) => {
-            try {
-              // tslint:disable-next-line: no-debugger
-              debugger;
-              const tra = TFS_RM_RestClient.getClient()
-                .getReleaseDefinitions(
-                  1,
-                  null,
-                  contracts.ReleaseDefinitionExpands.Environments);
-              // tslint:disable-next-line: no-debugger
-              debugger;
-              console.log(tra);
+      VSS.require([
+        'TFS/Dashboards/WidgetHelpers',
+        'TFS/Build/RestClient',
+        'TFS/Build/Contracts',
+        'ReleaseManagement/Core/RestClient',
+        'ReleaseManagement/Core/Contracts'],
+        function (WidgetHelpers: any, TFS_Build_RestClient: any, TFS_Build_Contracts: any, TFS_RM_RestClient: any, TFS_RM_Contracts: any) {
+          // Get the id of the current project
+          // tslint:disable-next-line: no-debugger
+          debugger;
+          const projectId = VSS.getWebContext().project.id;
 
-              // tslint:disable-next-line: no-debugger
-              resolve([]);
-              // tslint:disable-next-line: no-debugger
-              debugger;
-              // tslint:disable-next-line: no-debugger
-            } catch (er) {
-              console.log(er);
-            }
-          });
+          const tra = TFS_RM_RestClient.getClient()
+            .getReleaseDefinitions(
+              projectId,
+              null,
+              TFS_RM_Contracts.ReleaseDefinitionExpands.Environments);
 
-      // VSS.require(['TFS/WorkItemTracking/RestClient'], (restClientWi: any) => {
-      //   try {
-      //     // tslint:disable-next-line: no-debugger
-      //     debugger;
-      //     const witClient = restClientWi.getClient();
-      //     witClient.getWorkItem(424).then((wi: any) => {
-      //       // tslint:disable-next-line: no-debugger
-      //       debugger;
-      //       console.log(wi);
-      //       // const workItems = wi.map(nw => new WorkItem(nw.id, nw.fields['title'], nw.fields['date']));
-      //       // resolve(workItems);
-      //     });
-      //     // tslint:disable-next-line: no-debugger
-
-      //   } catch (er) {
-      //     // tslint:disable-next-line: no-debugger
-      //     debugger;
-      //     console.log(er);
-      //   }
-      // });
-
-      // VSS.require(['VSS/Service', 'TFS/WorkItemTracking/RestClient'], async (VSS_Service: any, TFS_Wit_WebApi: any) => {
-      //   try {
-      //     const witClient = VSS_Service.getCollectionClient(TFS_Wit_WebApi.WorkItemTrackingHttpClient);
-      //     witClient.getWorkItem(424, 1074).then((wi: any) => {
-      //       // tslint:disable-next-line: no-debugger
-      //       debugger;
-      //       console.log(wi);
-      //       // const workItems = wi.map(nw => new WorkItem(nw.id, nw.fields['title'], nw.fields['date']));
-      //       // resolve(workItems);
-      //     });
-      //     // tslint:disable-next-line: no-debugger
-
-      //   } catch (er) {
-      //     // tslint:disable-next-line: no-debugger
-      //     debugger;
-      //     console.log(er);
-      //   }
-      // });
-
-
-
+          // tslint:disable-next-line: no-debugger
+          debugger;
+          console.log(tra);
+          console.log(WidgetHelpers);
+          console.log(TFS_Build_RestClient);
+          console.log(TFS_Build_Contracts);
+        });
 
       console.log(dateFieldName);
-      // return [
-      //   new WorkItem(1, 'title  1', new Date(Date.now())),
-      //   new WorkItem(2, 'title  2', new Date(Date.now())),
-      //   new WorkItem(3, 'title  3', new Date(Date.now()))
-      // ];
+      resolve([]);
     });
+
+
   }
 }
