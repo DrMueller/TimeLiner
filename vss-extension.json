@@ -22,6 +22,11 @@
       "id": "Microsoft.VisualStudio.Services"
     }
   ],
+  "scopes": [
+    "vso.work",
+    "vso.build",
+    "vso.release"
+  ],
   "contributions": [
     {
       "id": "TimeLinerHub",
