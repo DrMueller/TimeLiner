@@ -1,5 +1,5 @@
 function initialize(explicitNotifyLoaded, usePlatformStyles, usePlatformScripts, afterSdkReadyCallback) {
-  appendScript('../../lib/VSS.SDK.min.js').onload = function () {
+  appendScript('../../lib/VSS.SDK.js').onload = function () {
     VSS.init({
       explicitNotifyLoaded: explicitNotifyLoaded || false,
       usePlatformStyles: usePlatformStyles || false,
