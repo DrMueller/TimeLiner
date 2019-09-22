@@ -3,6 +3,7 @@
 
 import { Injectable } from '@angular/core';
 import { WorkItem } from 'TFS/WorkItemTracking/Contracts';
+import { WorkItemTrackingHttpClient } from 'TFS/WorkItemTracking/RestClient';
 
 import * as m from '../models';
 
@@ -11,13 +12,12 @@ import * as m from '../models';
 })
 
 export class WorkItemRepo {
-  public loadAllAsync(dateFieldName: string): Promise<m.WorkItem[]> {
-    console.log(dateFieldName);
+  public loadAsync(ids: number[]): Promise<m.WorkItem[]> {
     return new Promise((resolve: (value?: m.WorkItem[]) => void, _: any) => {
       VSS.require(['TFS/WorkItemTracking/RestClient'], (wit: any) => {
-        const client = wit.getClient();
-        client.getWorkItem(424).then((workItem: WorkItem) => {
-          console.log(workItem);
+        const client = <WorkItemTrackingHttpClient> wit.getClient();
+        client.getWorkItems(ids).then((workItems: WorkItem[]) => {
+          workItems.fields;
         });
 
         resolve([]);

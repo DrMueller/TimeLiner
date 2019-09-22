@@ -12,7 +12,7 @@ export class CalendarEventRepo {
   }
 
   public async loadAllEventsAsync(): Promise<CalendarEvent[]> {
-    const workItems = await this.workItemRepo.loadAllAsync('tra');
+    const workItems = await this.workItemRepo.loadAsync('tra');
     const calendarEvents = workItems.map(wi => new CalendarEvent(wi.title, wi.date!, wi.date!));
     return calendarEvents;
   }
