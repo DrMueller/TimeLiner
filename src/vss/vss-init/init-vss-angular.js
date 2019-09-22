@@ -1,9 +1,10 @@
 function initialize(explicitNotifyLoaded, usePlatformStyles, usePlatformScripts, afterSdkReadyCallback) {
   appendScript('../../lib/VSS.SDK.js').onload = function () {
+    debugger;
     VSS.init({
       explicitNotifyLoaded: explicitNotifyLoaded || false,
       usePlatformStyles: usePlatformStyles || false,
-      usePlatformScripts: usePlatformScripts || false
+      usePlatformScripts: usePlatformScripts || false // Needed, if we want to use any scripts
     });
 
     VSS.ready(function () {
