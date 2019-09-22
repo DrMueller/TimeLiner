@@ -12,30 +12,39 @@ import { WorkItem } from '../models';
 export class WorkItemRepo {
   public loadAllAsync(dateFieldName: string): Promise<WorkItem[]> {
     return new Promise((resolve: (value?: WorkItem[]) => void, _: any) => {
-      VSS.require([
-        'ReleaseManagement/Core/RestClient',
-        'ReleaseManagement/Core/Contracts'],
-        function (TFS_RM_RestClient: any, TFS_RM_Contracts: any) {
-          // Get the id of the current project
-          // tslint:disable-next-line: no-debugger
-          debugger;
-          const projectId = VSS.getWebContext().project.id;
-
-          const tra = TFS_RM_RestClient.getClient()
-            .getReleaseDefinitions(
-              projectId,
-              null,
-              TFS_RM_Contracts.ReleaseDefinitionExpands.Environments);
-
-          // tslint:disable-next-line: no-debugger
-          debugger;
-          console.log(tra);
+      VSS.require(['TFS/WorkItemTracking/RestClient'], (wit: any) => {
+        debugger;
+        const client = wit.getClient();
+        client.getWorkItem(424).then((workItem: any) => {
+          console.log(workItem);
         });
-
-      console.log(dateFieldName);
-      resolve([]);
-    });
+      });
 
 
+      //   VSS.require([
+      //     'ReleaseManagement/Core/RestClient',
+      //     'ReleaseManagement/Core/Contracts'],
+      //     function (TFS_RM_RestClient: any, TFS_RM_Contracts: any) {
+      //       // Get the id of the current project
+      //       // tslint:disable-next-line: no-debugger
+      //       debugger;
+      //       const projectId = VSS.getWebContext().project.id;
+
+      //       const tra = TFS_RM_RestClient.getClient()
+      //         .getReleaseDefinitions(
+      //           projectId,
+      //           null,
+      //           TFS_RM_Contracts.ReleaseDefinitionExpands.Environments);
+
+      //       // tslint:disable-next-line: no-debugger
+      //       debugger;
+      //       console.log(tra);
+      //     });
+
+      //   console.log(dateFieldName);
+      //   resolve([]);
+      // });
+
+
+    };
   }
-}

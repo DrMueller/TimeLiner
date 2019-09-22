@@ -25,7 +25,8 @@
   "scopes": [
     "vso.work",
     "vso.build",
-    "vso.release"
+    "vso.release",
+    "vso.work_full"
   ],
   "contributions": [
     {
