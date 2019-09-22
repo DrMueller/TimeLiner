@@ -39,7 +39,7 @@ export class WorkItemRepo {
           // tslint:disable-next-line: no-debugger
           debugger;
           const witClient = restClientWi.getClient();
-          witClient.getWorkItem(424, 1074).then((wi: any) => {
+          witClient.getWorkItem(424).then((wi: any) => {
             // tslint:disable-next-line: no-debugger
             debugger;
             console.log(wi);
