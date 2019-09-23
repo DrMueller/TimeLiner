@@ -16,7 +16,7 @@ jobs:
   steps:
   - template: AzureDevOps/BuildTemplates/Angular/Steps/Git_Config.yaml@ALMStuff
   - template: AzureDevOps/BuildTemplates/Angular/Steps/Initialize.yaml@ALMStuff
-  - template: AzureDevOps/BuildTemplates/Angular/Steps/Run_Test.yaml@ALMStuff
+  - template: AzureDevOps/BuildTemplates/Angular/Steps/Run_Tests.yaml@ALMStuff
     parameters:
       ExecuteIntegrationTests: true
   - template: AzureDevOps/BuildTemplates/Angular/Steps/Build_Production.yaml@ALMStuff
