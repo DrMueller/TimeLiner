@@ -3,7 +3,8 @@ export class CalendarEvent {
     public readonly workItemId: number,
     public readonly title: string,
     public readonly start: Date,
-    public readonly end: Date) {
+    public readonly end: Date,
+    public backgroundColor: string) {
   }
 }
 

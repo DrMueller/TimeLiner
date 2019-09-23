@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
+import { VssWebContextFactory } from 'src/app/core/vss/contexts/web/services/vss-web-context.factory';
 import { WorkItemRepo } from 'src/app/core/vss/data/work-items';
-import { WorkItem } from 'src/app/core/vss/data/work-items/models';
+import { WorkItem, WorkItemType } from 'src/app/core/vss/data/work-items/models';
+import { WorkItemTypeRepo } from 'src/app/core/vss/data/work-items/work-item-type.repo';
 
 import { CalendarEvent } from '../models';
 
@@ -9,16 +11,20 @@ import { CalendarEvent } from '../models';
 })
 export class CalendarEventRepo {
 
-  public constructor(private workItemRepo: WorkItemRepo) {
+  public constructor(
+    private workItemRepo: WorkItemRepo,
+    private workItemTypeRepo: WorkItemTypeRepo,
+    private vssWebContextFactory: VssWebContextFactory) {
   }
 
   public async loadAllEventsAsync(): Promise<CalendarEvent[]> {
+    const workItemTypes = await this.loadWorkItemTypesAsync();
     const workItems = await this.workItemRepo.loadByIdsAsync(1043);
-    const calendarEvents = workItems.map(wi => this.map(wi));
+    const calendarEvents = workItems.map(wi => this.map(wi, workItemTypes));
     return calendarEvents;
   }
 
-  private map(wi: WorkItem): CalendarEvent {
+  private map(wi: WorkItem, workItemTypes: WorkItemType[]): CalendarEvent {
     const title = wi.findField('System.Title');
     const deadline = wi.findField('Custom.Deadline');
     // tslint:disable-next-line: no-debugger
@@ -26,11 +32,20 @@ export class CalendarEventRepo {
 
     const date = <string>deadline!.value;
     const beginDate = new Date(date);
-    beginDate.setUTCHours(0, 0, 0, 0);
+    beginDate.setHours(0, 0, 0, 0);
 
     const endDate = new Date(date);
-    endDate.setUTCHours(25, 59, 59, 999);
+    endDate.setHours(25, 59, 59, 999);
 
-    return new CalendarEvent(wi.id, title!.value, beginDate, endDate);
+    const workItemType = wi.findField('System.WorkItemType');
+    const type = workItemTypes.find(f => f.name === workItemType!.value);
+
+
+    return new CalendarEvent(wi.id, title!.value, beginDate, endDate, type!.color);
+  }
+
+  private loadWorkItemTypesAsync(): Promise<WorkItemType[]> {
+    const projectId = this.vssWebContextFactory.create().project.id;
+    return this.workItemTypeRepo.loadByProjectAsync(projectId);
   }
 }
