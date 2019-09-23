@@ -9,4 +9,18 @@ resources:
     endpoint: GitHub-DrMueller
 
 jobs:
-- template: AzureDevOps/BuildTemplates/Angular/Jobs/Build_And_Publish_AzureDevOps_Extension.yaml@ALMStuff
+- job: 'BuildAndPublishAzureDevOpsExtension'
+  displayName: 'Build and publish Azure DevOps Extension'
+  pool:
+    name: 'Hosted VS2017'
+  steps:
+  - template: ../Steps/Git_Config.yaml
+  - template: ../Steps/Initialize_And_Test.yaml
+    parameters:
+      ExecuteIntegrationTests: false
+  - template: ../Steps/Build_Production.yaml
+  - template: ../Steps/Update_NPM_Package_Version.yaml
+    parameters:
+      WorkingDir: dist
+  - template: ../Steps/Update_Tfx_Version.yaml
+  - template: ../Steps/Publish_Tfx_Package.yaml
