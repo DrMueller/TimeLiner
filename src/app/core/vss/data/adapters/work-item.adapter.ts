@@ -8,11 +8,11 @@ import { WorkItem, WorkItemField } from '../models';
 })
 export class WorkItemAdapter {
   public adapt(nativeWorkItem: nat.WorkItem): WorkItem {
-    const fields = nativeWorkItem.fields.map((nativeField: any) => this.adaptField(nativeField));
+    const fields = this.adaptFields(nativeWorkItem.fields);
     return new WorkItem(nativeWorkItem.id, fields);
   }
 
-  private adaptField(field: { [key: string]: any }): WorkItemField[] {
+  private adaptFields(field: { [key: string]: any }): WorkItemField[] {
     // tslint:disable-next-line: no-debugger
     debugger;
     const fieldKeys = Object.keys(field);
