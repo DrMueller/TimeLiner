@@ -9,8 +9,6 @@ import { Query } from '../models';
 export class QueryAdapter {
   public adapt(nativeQuery: nat.QueryHierarchyItem): Query {
     const children = new Array<Query>();
-    // tslint:disable-next-line: no-debugger
-    debugger;
     this.adaptRecursive(nativeQuery, children);
 
     const result = children[0];

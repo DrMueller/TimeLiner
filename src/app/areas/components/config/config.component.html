@@ -1,6 +1,6 @@
 <div class="config-container">
   <div class="config-container-item">
-    <app-query-select (selectedQueryChanged)="selectedQueryChanged($event)"></app-query-select>
+    <app-query-select (selectedQueryIdChanged)="selectedQueryIdChanged($event)"></app-query-select>
   </div>
   <div class="config-container-item">
     <input matInput type="text" [(ngModel)]="workItemDateFieldName" placeholder="Enter work-item date field name">

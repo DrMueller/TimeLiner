@@ -9,21 +9,19 @@ import { QueryRepo } from 'src/app/core/vss/data/queries/query.repo';
   styleUrls: ['./query-select.component.scss']
 })
 export class QuerySelectComponent implements OnInit {
-  public get selectedQuery(): Query {
-    return this._selectedQuery;
+  public get selectedQueryId(): string {
+    return this._selectedQueryId;
   }
 
-  public set selectedQuery(value: Query) {
-    // tslint:disable-next-line: no-debugger
-    debugger;
-    this._selectedQuery = value;
-    this.selectedQueryChanged.emit(value);
+  public set selectedQueryId(value: string) {
+    this._selectedQueryId = value;
+    this.selectedQueryIdChanged.emit(value);
   }
 
-  @Output() public selectedQueryChanged = new EventEmitter<Query>();
+  @Output() public selectedQueryIdChanged = new EventEmitter<string>();
 
   public queries: Query[];
-  private _selectedQuery: Query;
+  private _selectedQueryId: string;
 
   public constructor(
     private contextFactory: VssWebContextFactory,
@@ -32,8 +30,13 @@ export class QuerySelectComponent implements OnInit {
   public async ngOnInit(): Promise<void> {
     const context = this.contextFactory.create();
     const queries = await this.queryRepo.loadByProjectAsync(context.project.id);
-    // tslint:disable-next-line: no-debugger
-    debugger;
-    this.queries = ([] as Query[]).concat(...queries);
+    const flatQueries = new Array<Query>();
+    queries.forEach(query => this.flatten(query, flatQueries));
+    this.queries = flatQueries;
+  }
+
+  private flatten(query: Query, items: Query[]): void {
+    items.push(query);
+    query.children.forEach(subQuery => this.flatten(subQuery, items));
   }
 }
