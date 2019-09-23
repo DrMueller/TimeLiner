@@ -28,6 +28,8 @@ export class QueryAdapter {
       newChildren);
 
     parentCollection.push(newQuery);
-    nativeQuery.children.forEach(nativeChild => this.adaptRecursive(nativeChild, newChildren));
+    if (nativeQuery.children) {
+      nativeQuery.children.forEach(nativeChild => this.adaptRecursive(nativeChild, newChildren));
+    }
   }
 }
