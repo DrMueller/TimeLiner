@@ -14,6 +14,8 @@ export class QuerySelectComponent implements OnInit {
   }
 
   public set selectedQuery(value: Query) {
+    // tslint:disable-next-line: no-debugger
+    debugger;
     this._selectedQuery = value;
     this.selectedQueryChanged.emit(value);
   }
@@ -27,8 +29,11 @@ export class QuerySelectComponent implements OnInit {
     private contextFactory: VssWebContextFactory,
     private queryRepo: QueryRepo) { }
 
-  public ngOnInit() {
+  public async ngOnInit(): Promise<void> {
     const context = this.contextFactory.create();
-    this.queryRepo.loadByProjectAsync(context.project.id).then(queries => this.queries = queries);
+    const queries = await this.queryRepo.loadByProjectAsync(context.project.id);
+    // tslint:disable-next-line: no-debugger
+    debugger;
+    this.queries = ([] as Query[]).concat(...queries);
   }
 }
