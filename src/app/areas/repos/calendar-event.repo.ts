@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { WorkItemRepo } from 'src/app/core/vss/data';
-import { WorkItem } from 'src/app/core/vss/data/models';
+import { WorkItemRepo } from 'src/app/core/vss/data/work-items';
+import { WorkItem } from 'src/app/core/vss/data/work-items/models';
 
 import { CalendarEvent } from '../models';
 
@@ -23,6 +23,9 @@ export class CalendarEventRepo {
     const deadline = wi.findField('Custom.Deadline');
     // tslint:disable-next-line: no-debugger
     debugger;
-    return new CalendarEvent(wi.id, title!.value, deadline!.value, deadline!.value);
+
+    const date = <Date>deadline!.value;
+    date.setUTCHours(0, 0, 0, 0);
+    return new CalendarEvent(wi.id, title!.value, date, date);
   }
 }

@@ -1,11 +1,12 @@
-/// <reference path="../../../../../node_modules/vss-web-extension-sdk/typings/tfs.d.ts" />.
-/// <reference path="../../../../../node_modules/vss-web-extension-sdk/typings/VSS.SDK.d.ts" />.
+/// <reference path="../../../../../../node_modules/vss-web-extension-sdk/typings/tfs.d.ts" />.
+/// <reference path="../../../../../../node_modules/vss-web-extension-sdk/typings/VSS.SDK.d.ts" />.
 
 import { Injectable } from '@angular/core';
 
-import { WorkItemAdapter } from './adapters';
-import { ProxyFactory } from './factories/proxy.factory';
+import { ProxyFactory } from '../common';
+
 import { WorkItem } from './models';
+import { WorkItemAdapter } from './servants';
 
 @Injectable({
   providedIn: 'root'

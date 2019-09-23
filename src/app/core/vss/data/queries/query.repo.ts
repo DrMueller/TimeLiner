@@ -1,11 +1,13 @@
-/// <reference path="../../../../../node_modules/vss-web-extension-sdk/typings/tfs.d.ts" />.
-/// <reference path="../../../../../node_modules/vss-web-extension-sdk/typings/VSS.SDK.d.ts" />.
+/// <reference path="../../../../../../node_modules/vss-web-extension-sdk/typings/tfs.d.ts" />.
+/// <reference path="../../../../../../node_modules/vss-web-extension-sdk/typings/VSS.SDK.d.ts" />.
 
 import { Injectable } from '@angular/core';
+import { QueryExpand } from 'TFS/WorkItemTracking/Contracts';
 
-import { QueryAdapter } from './adapters/query.adapter';
-import { ProxyFactory } from './factories/proxy.factory';
+import { ProxyFactory } from '../common';
+
 import { Query } from './models';
+import { QueryAdapter } from './servants/query.adapter';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +23,9 @@ export class QueryRepo {
 
   public async loadByProjectAsync(projectId: string): Promise<Query[]> {
     const client = await this.proxyFactory.createWorkItemTrackingClientAsync();
-    const nativeQueries = await client.getQueries(projectId);
+    const nativeQueries = await client.getQueries(projectId, QueryExpand.All);
+    // tslint:disable-next-line: no-debugger
+    debugger;
     const queries = nativeQueries.map(nativeQuery => this.adapter.adapt(nativeQuery));
     return queries;
   }

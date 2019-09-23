@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { VssWebContextFactory } from 'src/app/core/vss/contexts/web/services/vss-web-context.factory';
-import { Query } from 'src/app/core/vss/data/models';
-import { QueryRepo } from 'src/app/core/vss/data/query.repo';
+import { Query } from 'src/app/core/vss/data/queries/models';
+import { QueryRepo } from 'src/app/core/vss/data/queries/query.repo';
 
 @Component({
   selector: 'app-query-select',
