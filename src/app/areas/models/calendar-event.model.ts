@@ -1,5 +1,9 @@
 export class CalendarEvent {
-  constructor(public readonly title: string, public readonly start: Date, public readonly end: Date) {
+  constructor(
+    public readonly workItemId: number,
+    public readonly title: string,
+    public readonly start: Date,
+    public readonly end: Date) {
   }
 }
 

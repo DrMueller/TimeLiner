@@ -3,6 +3,10 @@ import { WorkItemField } from '.';
 export class WorkItem {
   public constructor(
     public readonly id: number,
-    public readonly fields: WorkItemField[]) {
+    private readonly fields: WorkItemField[]) {
+  }
+
+  public findField(name: string): WorkItemField | undefined {
+    return this.fields.find(f => f.name === name);
   }
 }

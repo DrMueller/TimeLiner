@@ -13,12 +13,8 @@ export class WorkItemAdapter {
   }
 
   private adaptFields(field: { [key: string]: any }): WorkItemField[] {
-    // tslint:disable-next-line: no-debugger
-    debugger;
     const fieldKeys = Object.keys(field);
     const result = fieldKeys.map(fk => {
-      // tslint:disable-next-line: no-debugger
-      debugger;
       const val = field[fk];
       return new WorkItemField(fk, val);
     });
