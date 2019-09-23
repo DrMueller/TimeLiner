@@ -1,3 +1,6 @@
+/// <reference path="../../../../../node_modules/vss-web-extension-sdk/typings/tfs.d.ts" />.
+/// <reference path="../../../../../node_modules/vss-web-extension-sdk/typings/VSS.SDK.d.ts" />.
+
 import { Injectable } from '@angular/core';
 
 import { WorkItemAdapter } from './adapters';
@@ -15,7 +18,7 @@ export class WorkItemRepo {
   }
 
   public async loadByIdAsync(...ids: number[]): Promise<WorkItem[]> {
-    const client = await this.proxyFactory.createWorkItemClientAsync();
+    const client = await this.proxyFactory.createWorkItemTrackingClientAsync();
     const nativeWorkItems = await client.getWorkItems(ids);
     const workItems = nativeWorkItems.map(nativeWorkItem => this.adapter.adapt(nativeWorkItem));
     return workItems;

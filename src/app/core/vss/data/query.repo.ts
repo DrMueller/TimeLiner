@@ -1,3 +1,6 @@
+/// <reference path="../../../../../node_modules/vss-web-extension-sdk/typings/tfs.d.ts" />.
+/// <reference path="../../../../../node_modules/vss-web-extension-sdk/typings/VSS.SDK.d.ts" />.
+
 import { Injectable } from '@angular/core';
 
 import { QueryAdapter } from './adapters/query.adapter';
@@ -17,7 +20,7 @@ export class QueryRepo {
   }
 
   public async loadAllAsync(projectId: string): Promise<Query[]> {
-    const client = await this.proxyFactory.createWorkItemClientAsync();
+    const client = await this.proxyFactory.createWorkItemTrackingClientAsync();
     const nativeQueries = await client.getQueries(projectId);
     const queries = nativeQueries.map(nativeQuery => this.adapter.adapt(nativeQuery));
     return queries;
