@@ -1,4 +1,4 @@
-import { WorkItemField } from '.';
+import { WorkItemField } from '../models';
 
 export class WorkItem {
   public constructor(
