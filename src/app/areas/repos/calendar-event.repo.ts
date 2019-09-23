@@ -4,7 +4,7 @@ import { WorkItemRepo } from 'src/app/core/vss/data/work-items';
 import { WorkItem, WorkItemType } from 'src/app/core/vss/data/work-items/models';
 import { WorkItemTypeRepo } from 'src/app/core/vss/data/work-items/work-item-type.repo';
 
-import { CalendarEvent } from '../models';
+import { CalendarEvent, SearchConfiguration } from '../models';
 
 @Injectable({
   providedIn: 'root'
@@ -17,16 +17,19 @@ export class CalendarEventRepo {
     private vssWebContextFactory: VssWebContextFactory) {
   }
 
-  public async loadAllEventsAsync(): Promise<CalendarEvent[]> {
+  public async loadEventsAsync(searchConfig: SearchConfiguration): Promise<CalendarEvent[]> {
     const workItemTypes = await this.loadWorkItemTypesAsync();
-    const workItems = await this.workItemRepo.loadByIdsAsync(1043);
-    const calendarEvents = workItems.map(wi => this.map(wi, workItemTypes));
+    const workItems = await this.workItemRepo.loadByQueryAsync(searchConfig.queryId);
+    const calendarEvents = workItems.map(wi => this.map(wi, searchConfig.dateFieldName, workItemTypes));
     return calendarEvents;
   }
 
-  private map(wi: WorkItem, workItemTypes: WorkItemType[]): CalendarEvent {
+  private map(
+    wi: WorkItem,
+    dateFieldName: string,
+    workItemTypes: WorkItemType[]): CalendarEvent {
     const title = wi.findField('System.Title');
-    const deadline = wi.findField('Custom.Deadline');
+    const deadline = wi.findField(dateFieldName);
     // tslint:disable-next-line: no-debugger
     debugger;
 

@@ -1,11 +1,11 @@
 <div class="config-container">
   <div class="config-container-item">
-    <app-query-select></app-query-select>
+    <app-query-select (selectedQueryChanged)="selectedQueryChanged($event)"></app-query-select>
   </div>
   <div class="config-container-item">
-    <input matInput type="text" placeholder="Enter work-item field name">
+    <input matInput type="text" [(ngModel)]="workItemDateFieldName" placeholder="Enter work-item date field name">
   </div>
   <div class="config-container-item">
-    <button mat-stroked-button color="primary">Refresh</button>
+    <button mat-stroked-button color="primary" (clicked)="loadDataAsync()">Refresh</button>
   </div>
 </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { VssWebContextFactory } from 'src/app/core/vss/contexts/web/services/vss-web-context.factory';
 import { Query } from 'src/app/core/vss/data/queries/models';
 import { QueryRepo } from 'src/app/core/vss/data/queries/query.repo';
@@ -9,9 +9,19 @@ import { QueryRepo } from 'src/app/core/vss/data/queries/query.repo';
   styleUrls: ['./query-select.component.scss']
 })
 export class QuerySelectComponent implements OnInit {
-  public selectedQuery: Query;
+  public get selectedQuery(): Query {
+    return this._selectedQuery;
+  }
+
+  public set selectedQuery(value: Query) {
+    this._selectedQuery = value;
+    this.selectedQueryChanged.emit(value);
+  }
+
+  @Output() public selectedQueryChanged = new EventEmitter<Query>();
 
   public queries: Query[];
+  private _selectedQuery: Query;
 
   public constructor(
     private contextFactory: VssWebContextFactory,

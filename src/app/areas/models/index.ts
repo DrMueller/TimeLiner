@@ -1,1 +1,2 @@
-export * from './calendar-event.model';
+export * from './search-configuration';
+export * from './calendar-event';
