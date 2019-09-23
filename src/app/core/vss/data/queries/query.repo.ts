@@ -1,8 +1,4 @@
-/// <reference path="../../../../../../node_modules/vss-web-extension-sdk/typings/tfs.d.ts" />.
-/// <reference path="../../../../../../node_modules/vss-web-extension-sdk/typings/VSS.SDK.d.ts" />.
-
 import { Injectable } from '@angular/core';
-import { QueryExpand } from 'TFS/WorkItemTracking/Contracts';
 
 import { ProxyFactory } from '../common';
 
@@ -23,7 +19,7 @@ export class QueryRepo {
 
   public async loadByProjectAsync(projectId: string): Promise<Query[]> {
     const client = await this.proxyFactory.createWorkItemTrackingClientAsync();
-    const nativeQueries = await client.getQueries(projectId, QueryExpand.All);
+    const nativeQueries = await client.getQueries(projectId, 3);
     // tslint:disable-next-line: no-debugger
     debugger;
     const queries = nativeQueries.map(nativeQuery => this.adapter.adapt(nativeQuery));
