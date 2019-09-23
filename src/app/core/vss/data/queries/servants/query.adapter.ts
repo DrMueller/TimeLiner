@@ -15,7 +15,6 @@ export class QueryAdapter {
 
     const result = children[0];
     return result;
-
   }
 
   private adaptRecursive(nativeQuery: nat.QueryHierarchyItem, parentCollection: Query[]): void {

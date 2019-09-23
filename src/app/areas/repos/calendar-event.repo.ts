@@ -25,10 +25,10 @@ export class CalendarEventRepo {
     debugger;
 
     const date = <Date>deadline!.value;
-    const beginDate = <Date>Object.create(date);
+    const beginDate = new Date(date.getDate());
     beginDate.setUTCHours(0, 0, 0, 0);
 
-    const endDate = <Date>Object.create(date);
+    const endDate = new Date(date.getDate());
     endDate.setUTCHours(25, 59, 59, 999);
 
     return new CalendarEvent(wi.id, title!.value, beginDate, endDate);
