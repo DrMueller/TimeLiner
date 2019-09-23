@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { VssContextFactory } from 'src/app/core/vss/context/services/vss-context.factory';
+import { QueryRepo } from 'src/app/core/vss/data/query.repo';
 
 import { Query } from '../../models';
-import { QueryRepo } from '../../repos/query.repo';
 
 @Component({
   selector: 'app-query-select',
@@ -13,9 +14,14 @@ export class QuerySelectComponent implements OnInit {
 
   public queries: Query[];
 
-  public constructor(private queryRepo: QueryRepo) { }
+  public constructor(
+    private contextFactory: VssContextFactory,
+    private queryRepo: QueryRepo) { }
 
   public ngOnInit() {
-    this.queryRepo.loadAllQueries().then(queries => this.queries = queries);
+    const context = this.contextFactory.create();
+    // tslint:disable-next-line: no-debugger
+    debugger;
+    this.queryRepo.loadAllAsync(context.project.id).then(queries => this.queries = queries);
   }
 }
