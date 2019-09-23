@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { VssContextFactory } from 'src/app/core/vss/context/services/vss-context.factory';
+import { Query } from 'src/app/core/vss/data/models';
 import { QueryRepo } from 'src/app/core/vss/data/query.repo';
-
-import { Query } from '../../models';
 
 @Component({
   selector: 'app-query-select',
@@ -22,6 +21,6 @@ export class QuerySelectComponent implements OnInit {
     const context = this.contextFactory.create();
     // tslint:disable-next-line: no-debugger
     debugger;
-    this.queryRepo.loadAllAsync(context.project.id).then(queries => this.queries = queries);
+    this.queryRepo.loadByProjectAsync(context.project.id).then(queries => this.queries = queries);
   }
 }

@@ -17,7 +17,7 @@ export class WorkItemRepo {
     private adapter: WorkItemAdapter) {
   }
 
-  public async loadByIdAsync(...ids: number[]): Promise<WorkItem[]> {
+  public async loadByIdsAsync(...ids: number[]): Promise<WorkItem[]> {
     const client = await this.proxyFactory.createWorkItemTrackingClientAsync();
     const nativeWorkItems = await client.getWorkItems(ids);
     const workItems = nativeWorkItems.map(nativeWorkItem => this.adapter.adapt(nativeWorkItem));

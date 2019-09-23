@@ -19,7 +19,7 @@ export class QueryRepo {
     private adapter: QueryAdapter) {
   }
 
-  public async loadAllAsync(projectId: string): Promise<Query[]> {
+  public async loadByProjectAsync(projectId: string): Promise<Query[]> {
     const client = await this.proxyFactory.createWorkItemTrackingClientAsync();
     const nativeQueries = await client.getQueries(projectId);
     const queries = nativeQueries.map(nativeQuery => this.adapter.adapt(nativeQuery));
