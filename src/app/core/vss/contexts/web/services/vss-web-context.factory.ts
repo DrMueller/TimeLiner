@@ -1,17 +1,14 @@
 import { Injectable } from '@angular/core';
 
-import { VssContext, VssProject, VssUser } from '../models';
+import { VssProject, VssUser, VssWebContext } from '../models';
 
 @Injectable({
   providedIn: 'root'
 })
-export class VssContextFactory {
-
-  constructor() { }
-
-  public create(): VssContext {
+export class VssWebContextFactory {
+  public create(): VssWebContext {
     const nativeContext = VSS.getWebContext();
-    return new VssContext(
+    return new VssWebContext(
       this.createVssProject(nativeContext),
       this.createVssUser(nativeContext)
     );

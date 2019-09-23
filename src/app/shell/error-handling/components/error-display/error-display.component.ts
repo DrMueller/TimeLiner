@@ -12,5 +12,4 @@ export class ErrorDisplayComponent {
   public constructor(
     public dialogRef: MatDialogRef<ErrorDisplayComponent>,
     @Inject(MAT_DIALOG_DATA) public errorInfo: ErrorInformation) { }
-
 }
