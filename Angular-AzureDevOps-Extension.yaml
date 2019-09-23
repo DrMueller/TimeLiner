@@ -14,14 +14,14 @@ jobs:
   pool:
     name: 'Hosted VS2017'
   steps:
-  - template: ../Steps/Git_Config.yaml
-  - template: ../Steps/Initialize.yaml
-  - template: ../Steps/Run_Test.yaml
+  - template: AzureDevOps/BuildTemplates/Angular/Steps/Git_Config.yaml@ALMStuff
+  - template: AzureDevOps/BuildTemplates/Angular/Steps/Initialize.yaml@ALMStuff
+  - template: AzureDevOps/BuildTemplates/Angular/Steps/Run_Test.yaml@ALMStuff
     parameters:
       ExecuteIntegrationTests: true
-  - template: ../Steps/Build_Production.yaml
-  - template: ../Steps/Update_NPM_Package_Version.yaml
+  - template: AzureDevOps/BuildTemplates/Angular/Steps/Build_Production.yaml@ALMStuff
+  - template: AzureDevOps/BuildTemplates/Angular/Steps/Update_NPM_Package_Version.yaml@ALMStuff
     parameters:
       WorkingDir: dist
-  - template: ../Steps/Update_Tfx_Version.yaml
-  - template: ../Steps/Publish_Tfx_Package.yaml
+  - template: AzureDevOps/BuildTemplates/Angular/Steps/Update_Tfx_Version.yaml@ALMStuff
+  - template: AzureDevOps/BuildTemplates/Angular/Steps/Publish_Tfx_Package.yaml@ALMStuff
