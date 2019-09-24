@@ -52,9 +52,13 @@ export class CalendarEventRepo {
       textColor = '#ffffff';
     }
 
+    const projectName = this.vssWebContextFactory.create().project.name;
+    const editUrl = `https://drmueller.visualstudio.com/${projectName}/_workitems/edit/${wi.id}/`;
+
     const calendarEvent = new CalendarEvent(
       wi.id,
       title!.value,
+      editUrl,
       date,
       true,
       typeColor,

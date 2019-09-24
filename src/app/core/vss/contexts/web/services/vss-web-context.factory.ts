@@ -8,6 +8,14 @@ import { VssProject, VssUser, VssWebContext } from '../models';
 export class VssWebContextFactory {
   public create(): VssWebContext {
     const nativeContext = VSS.getWebContext();
+    // tslint:disable-next-line: no-debugger
+    debugger;
+    const col = nativeContext.collection;
+    const tra = nativeContext.account;
+
+    console.log(col);
+    console.log(tra);
+
     return new VssWebContext(
       this.createVssProject(nativeContext),
       this.createVssUser(nativeContext)

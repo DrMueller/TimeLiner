@@ -15,6 +15,7 @@ export class CalendarComponent {
   public eventClicked(info: any) {
     // tslint:disable-next-line: no-debugger
     debugger;
-    console.log(info);
+    const eventUrl = info.event.url;
+    window.open(eventUrl);
   }
 }

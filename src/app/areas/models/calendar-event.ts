@@ -2,8 +2,9 @@ export class CalendarEvent {
   constructor(
     public readonly workItemId: number,
     public readonly title: string,
+    public readonly url: string,
     public readonly date: Date,
-    public readonly allDay: true,
+    public readonly allDay: boolean,
     public readonly backgroundColor?: string,
     public readonly borderColor?: string,
     public readonly textColor?: string) {
