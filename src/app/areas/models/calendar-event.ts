@@ -4,10 +4,9 @@ export class CalendarEvent {
     public readonly title: string,
     public readonly date: Date,
     public readonly allDay: true,
-    public readonly backgroundColor: string,
-    public readonly borderColor: string,
-    public readonly textColor: string,
-    public readonly color: string) {
+    public readonly backgroundColor?: string,
+    public readonly borderColor?: string,
+    public readonly textColor?: string) {
   }
 }
 
