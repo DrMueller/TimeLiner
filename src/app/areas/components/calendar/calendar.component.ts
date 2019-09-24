@@ -13,6 +13,13 @@ export class CalendarComponent {
   @Input() public events: CalendarEvent[] = [];
   public calendarPlugins = [dayGridPlugin];
 
+  public buttonText = {
+    prev: '<',
+    next: '>',
+    prevYear: '<<',
+    nextYear: '>>'
+  };
+
   public buttonIcons = {
     prev: '',
     next: '',
