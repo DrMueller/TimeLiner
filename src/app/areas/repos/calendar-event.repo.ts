@@ -43,17 +43,14 @@ export class CalendarEventRepo {
     date.setHours(0, 0, 0, 0);
 
     const workItemType = wi.findField('System.WorkItemType').result;
-    const type = workItemTypes.find(f => f.name === workItemType!.value);
-    console.log(type);
-    // tslint:disable-next-line: no-debugger
-    debugger;
+    const typeColor = '#' + workItemTypes.find(f => f.name === workItemType!.value)!.color;
 
     const calendarEvent = new CalendarEvent(
       wi.id,
       title!.value,
       date,
       true,
-      type!.color);
+      typeColor);
 
     return FunctionResult.createSuccess(calendarEvent);
   }

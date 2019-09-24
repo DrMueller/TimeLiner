@@ -1,4 +1,6 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { timer } from 'rxjs';
+import { StorageService } from 'src/app/core/storage/services';
 
 import { SearchConfiguration } from '../../models';
 
@@ -7,10 +9,19 @@ import { SearchConfiguration } from '../../models';
   templateUrl: './config.component.html',
   styleUrls: ['./config.component.scss']
 })
-export class ConfigComponent {
+export class ConfigComponent implements OnInit {
   public set workItemDateFieldName(value: string) {
     this._workItemDateFieldName = value;
-    this.emitChange();
+
+    if (this._timerId) {
+      window.clearTimeout(this._timerId);
+    }
+
+    this._timerId = window.setTimeout(() => {
+      console.log('in timer');
+      this.emitChange();
+      this.persistWorkItemDateFieldName();
+    }, 2000);
   }
 
   public get workItemDateFieldName(): string {
@@ -20,8 +31,16 @@ export class ConfigComponent {
   @Output() public searchConfigChanged = new EventEmitter<SearchConfiguration>();
   @Output() public dataRefreshRequested = new EventEmitter();
 
+  private readonly DateFieldKey = 'DateFieldKey';
+  private _timerId: number | undefined;
   private _workItemDateFieldName: string;
   private _queryId: string;
+
+  public constructor(private storage: StorageService) { }
+
+  public ngOnInit(): void {
+    this.workItemDateFieldName = this.storage.load(this.DateFieldKey) || '';
+  }
 
   public selectedQueryIdChanged(queryId: string): void {
     this._queryId = queryId;
@@ -34,5 +53,9 @@ export class ConfigComponent {
 
   private emitChange(): void {
     this.searchConfigChanged.emit(new SearchConfiguration(this._queryId, this._workItemDateFieldName));
+  }
+
+  private persistWorkItemDateFieldName(): void {
+    this.storage.save(this.DateFieldKey, this._workItemDateFieldName);
   }
 }
