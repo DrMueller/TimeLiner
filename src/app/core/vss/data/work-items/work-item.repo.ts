@@ -3,7 +3,7 @@
 
 import { Injectable } from '@angular/core';
 import { WorkItemTrackingHttpClient } from 'TFS/WorkItemTracking/RestClient';
-// import { JsonPatchDocument } from  'VSS/WebApi/Contracts';
+import { JsonPatchDocument, Operation } from 'VSS/WebApi/Contracts';
 
 import { ProxyFactory } from '../common';
 
@@ -20,12 +20,19 @@ export class WorkItemRepo {
     private adapter: WorkItemAdapter) {
   }
 
-  // public async saveWorkItemAsync(workItem: WorkItem): Promise<void> {
-  //   const client = await this.proxyFactory.createWorkItemTrackingClientAsync();
-  //   const tra = new JsonPatchDocument();
+  public async updateWorkItemAsync(workItem: WorkItem): Promise<void> {
+    const client = await this.proxyFactory.createWorkItemTrackingClientAsync();
 
-  //   client.updateWorkItem();
-  // }
+    // tslint:disable-next-line: no-debugger
+    debugger;
+    const tra = <JsonPatchDocument>{
+      op: Operation.Add,
+      path: '/fields/system.title',
+      value: 'tra'
+    };
+
+    await client.updateWorkItem(tra, workItem.id);
+  }
 
   public async loadByIdsAsync(...ids: number[]): Promise<WorkItem[]> {
     const client = await this.proxyFactory.createWorkItemTrackingClientAsync();
