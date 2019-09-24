@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { VssProject, VssUser, VssWebContext } from '../models';
+import { VssCollection, VssProject, VssUser, VssWebContext } from '../models';
 
 @Injectable({
   providedIn: 'root'
@@ -17,9 +17,16 @@ export class VssWebContextFactory {
     console.log(tra);
 
     return new VssWebContext(
+      this.createVssCollection(nativeContext),
       this.createVssProject(nativeContext),
       this.createVssUser(nativeContext)
     );
+  }
+
+  private createVssCollection(nativeContext: WebContext): VssCollection {
+    return new VssCollection(
+      nativeContext.collection.id,
+      nativeContext.collection.name);
   }
 
   private createVssUser(nativeContext: WebContext): VssUser {
