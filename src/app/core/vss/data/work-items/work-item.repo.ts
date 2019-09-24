@@ -3,6 +3,7 @@
 
 import { Injectable } from '@angular/core';
 import { WorkItemTrackingHttpClient } from 'TFS/WorkItemTracking/RestClient';
+// import { JsonPatchDocument } from  'VSS/WebApi/Contracts';
 
 import { ProxyFactory } from '../common';
 

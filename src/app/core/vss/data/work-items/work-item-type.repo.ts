@@ -3,30 +3,23 @@
 
 import { Injectable } from '@angular/core';
 
-import { ProxyFactory } from '../common';
-
 import { WorkItemType } from './models';
-import { WorkItemTypeAdapter } from './servants/work-item-type.adapter';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class WorkItemTypeRepo {
-  public constructor(
-    private proxyFactory: ProxyFactory,
-    private adapter: WorkItemTypeAdapter) {
-  }
+  // public constructor(
+  //   private proxyFactory: ProxyFactory,
+  //   private adapter: WorkItemTypeAdapter) {
+  // }
 
-  public async loadByProjectAsync(projectId: string): Promise<WorkItemType[]> {
-    const client = await this.proxyFactory.createWorkItemTrackingClientAsync();
-    // tslint:disable-next-line: no-debugger
-    debugger;
-    const nativeTypes = await client.getWorkItemTypes(projectId);
-    // tslint:disable-next-line: no-debugger
-    debugger;
-
-    const types = nativeTypes.map(nativeWorkItem => this.adapter.adapt(nativeWorkItem));
-    return types;
+  public async loadByProjectAsync(_: string): Promise<WorkItemType[]> {
+    return Promise.resolve([]);
+    // const client = await this.proxyFactory.createWorkItemTrackingClientAsync();
+    // const nativeTypes = await client.getWorkItemTypes(projectId);
+    // const types = nativeTypes.map(nativeWorkItem => this.adapter.adapt(nativeWorkItem));
+    // return types;
   }
 }
