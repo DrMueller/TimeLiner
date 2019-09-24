@@ -18,6 +18,11 @@ export class CalendarEventRepo {
 
   public async loadEventsAsync(searchConfig: SearchConfiguration): Promise<CalendarEvent[]> {
     const workItems = await this.workItemRepo.loadByQueryAsync(searchConfig.queryId);
+
+    if (workItems.length === 0) {
+      return new Array<CalendarEvent>();
+    }
+
     const typeColors = await this.colorFactory.createAllColorsAsync();
     const calendarEvents = workItems
       .map(wi => this.tryToMap(wi, searchConfig.dateFieldName, typeColors))

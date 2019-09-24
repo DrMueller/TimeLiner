@@ -32,6 +32,10 @@ export class WorkItemRepo {
   }
 
   private async loadAndMapWorkItemsAsync(client: WorkItemTrackingHttpClient, ids: number[]): Promise<WorkItem[]> {
+    if (ids.length === 0) {
+      return new Array<WorkItem>();
+    }
+
     const nativeWorkItems = await client.getWorkItems(ids);
     const workItems = nativeWorkItems.map(nativeWorkItem => this.adapter.adapt(nativeWorkItem));
     return workItems;
