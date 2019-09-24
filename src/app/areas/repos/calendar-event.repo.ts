@@ -37,17 +37,14 @@ export class CalendarEventRepo {
       return FunctionResult.createFailure<CalendarEvent>();
     }
 
-    const title = wi.findField('System.Title').result;
     const dateStr = <string>dateField.result!.value;
     const date = new Date(dateStr);
     date.setHours(0, 0, 0, 0);
-
-    const workItemType = wi.findField('System.WorkItemType').result;
-    const typeColor = colors.find(f => f.workItemTypeName === workItemType!.value)!;
+    const typeColor = colors.find(f => f.workItemTypeName === wi.workItemTypeDescription)!;
     const editUrl = this.workItemUrlFactory.createEditUrl(wi.id);
 
     const calendarEvent = new CalendarEvent(
-      title!.value,
+      wi.title,
       editUrl,
       date,
       true,

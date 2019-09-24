@@ -8,6 +8,14 @@ export class WorkItem {
     private readonly fields: WorkItemField[]) {
   }
 
+  public get title(): string {
+    return this.findField('System.Title').result!.value;
+  }
+
+  public get workItemTypeDescription(): string {
+    return this.findField('System.WorkItemType').result!.value;
+  }
+
   public findField(name: string): FunctionResult<WorkItemField> {
     const field = this.fields.find(f => f.name === name);
     if (!field) {
