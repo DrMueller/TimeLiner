@@ -23,6 +23,9 @@ export class WorkItemRepo {
     const client = await this.proxyFactory.createWorkItemTrackingClientAsync();
 
     // tslint:disable-next-line: no-debugger
+
+    https: // stackoverflow.com/questions/34014578/tfs-update-workitem-erroryou-must-pass-a-valid-patch-document-in-the-body-of-th
+
     debugger;
     const tra = {
       op: 0,
