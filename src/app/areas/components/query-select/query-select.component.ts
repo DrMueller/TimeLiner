@@ -14,8 +14,6 @@ export class QuerySelectComponent implements OnInit {
   }
 
   public set selectedQueryId(value: string) {
-    // tslint:disable-next-line: no-debugger
-    debugger;
     this._selectedQueryId = value;
     this.selectedQueryIdChanged.emit(value);
   }

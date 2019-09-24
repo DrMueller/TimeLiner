@@ -9,8 +9,6 @@ import { SearchConfiguration } from '../../models';
 })
 export class ConfigComponent {
   public set workItemDateFieldName(value: string) {
-    // tslint:disable-next-line: no-debugger
-    debugger;
     this._workItemDateFieldName = value;
     this.emitChange();
   }
@@ -37,5 +35,4 @@ export class ConfigComponent {
   private emitChange(): void {
     this.searchConfigChanged.emit(new SearchConfiguration(this._queryId, this._workItemDateFieldName));
   }
-
 }

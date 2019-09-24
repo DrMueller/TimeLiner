@@ -3,7 +3,7 @@
     <app-query-select (selectedQueryIdChanged)="selectedQueryIdChanged($event)"></app-query-select>
   </div>
   <div class="config-container-item">
-    <input matInput type="text" [(ngModel)]="workItemDateFieldName" placeholder="Enter work-item date field name">
+    <input matInput type="text" [(ngModel)]="workItemDateFieldName" placeholder="Date field name">
   </div>
   <div class="config-container-item">
     <button mat-stroked-button color="primary" (click)="refresh()">Refresh</button>
