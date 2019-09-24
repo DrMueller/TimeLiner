@@ -8,7 +8,7 @@ import { SearchConfiguration } from '../../models';
   styleUrls: ['./config.component.scss']
 })
 export class ConfigComponent {
-  public set workTemDateFieldName(value: string) {
+  public set workItemDateFieldName(value: string) {
     // tslint:disable-next-line: no-debugger
     debugger;
     this._workItemDateFieldName = value;
