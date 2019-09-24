@@ -21,6 +21,10 @@ export class ConfigComponent implements OnInit {
       this.persistWorkItemDateFieldName();
     }, 500);
   }
+ 
+  public get canRefresh(): boolean {
+    return !!this._workItemDateFieldName && !!this._queryId;
+  }
 
   public get workItemDateFieldName(): string {
     return this._workItemDateFieldName;

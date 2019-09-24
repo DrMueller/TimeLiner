@@ -6,6 +6,6 @@
     <input matInput type="text" [(ngModel)]="workItemDateFieldName" placeholder="Date field name">
   </div>
   <div class="config-container-item">
-    <button mat-stroked-button color="primary" (click)="refresh()">Refresh</button>
+    <button mat-stroked-button color="primary" [disabled]="!canRefresh" (click)="refresh()">Refresh</button>
   </div>
 </div>
