@@ -1,9 +1,10 @@
 <div class="overview-container">
-  <div class="calendar">
+  <div>
     <app-calendar [events]="events"></app-calendar>
   </div>
 
   <div>
-    <app-config (dataRefreshRequested)="dataRefreshRequested()" (searchConfigChanged)="searchConfigChanged($event)"></app-config>
+    <app-config (dataRefreshRequested)="dataRefreshRequested()" (searchConfigChanged)="searchConfigChanged($event)">
+    </app-config>
   </div>
 </div>
