@@ -1,3 +1,5 @@
+import { FunctionResult } from 'src/app/utils/types';
+
 import { WorkItemField } from '.';
 
 export class WorkItem {
@@ -6,7 +8,12 @@ export class WorkItem {
     private readonly fields: WorkItemField[]) {
   }
 
-  public findField(name: string): WorkItemField | undefined {
-    return this.fields.find(f => f.name === name);
+  public findField(name: string): FunctionResult<WorkItemField> {
+    const field = this.fields.find(f => f.name === name);
+    if (!field) {
+      return FunctionResult.createFailure<WorkItemField>();
+    }
+
+    return FunctionResult.createSuccess(field);
   }
 }

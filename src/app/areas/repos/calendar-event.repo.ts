@@ -3,6 +3,7 @@ import { VssWebContextFactory } from 'src/app/core/vss/contexts/web/services/vss
 import { WorkItemRepo } from 'src/app/core/vss/data/work-items';
 import { WorkItem, WorkItemType } from 'src/app/core/vss/data/work-items/models';
 import { WorkItemTypeRepo } from 'src/app/core/vss/data/work-items/work-item-type.repo';
+import { FunctionResult } from 'src/app/utils/types';
 
 import { CalendarEvent, SearchConfiguration } from '../models';
 
@@ -10,7 +11,6 @@ import { CalendarEvent, SearchConfiguration } from '../models';
   providedIn: 'root'
 })
 export class CalendarEventRepo {
-
   public constructor(
     private workItemRepo: WorkItemRepo,
     private workItemTypeRepo: WorkItemTypeRepo,
@@ -20,27 +20,33 @@ export class CalendarEventRepo {
   public async loadEventsAsync(searchConfig: SearchConfiguration): Promise<CalendarEvent[]> {
     const workItemTypes = await this.loadWorkItemTypesAsync();
     const workItems = await this.workItemRepo.loadByQueryAsync(searchConfig.queryId);
-    const calendarEvents = workItems.map(wi => this.map(wi, searchConfig.dateFieldName, workItemTypes));
+    const calendarEvents = workItems
+      .map(wi => this.tryMapping(wi, searchConfig.dateFieldName, workItemTypes))
+      .filter(eventResult => eventResult.isSuccess)
+      .map(eventResult => eventResult.result!);
+
     return calendarEvents;
   }
 
-  private map(
+  private tryMapping(
     wi: WorkItem,
     dateFieldName: string,
-    workItemTypes: WorkItemType[]): CalendarEvent {
-    const title = wi.findField('System.Title');
-    const deadline = wi.findField(dateFieldName);
-    // tslint:disable-next-line: no-debugger
-    debugger;
+    workItemTypes: WorkItemType[]): FunctionResult<CalendarEvent> {
+    const dateField = wi.findField(dateFieldName);
+    if (!dateField.isSuccess) {
+      return FunctionResult.createFailure<CalendarEvent>();
+    }
 
-    const dateStr = <string>deadline!.value;
+    const title = wi.findField('System.Title').result;
+    const dateStr = <string>dateField.result!.value;
     const date = new Date(dateStr);
     date.setHours(0, 0, 0, 0);
 
-    const workItemType = wi.findField('System.WorkItemType');
+    const workItemType = wi.findField('System.WorkItemType').result;
     const type = workItemTypes.find(f => f.name === workItemType!.value);
 
-    return new CalendarEvent(wi.id, title!.value, date, true, type!.color);
+    const calendarEvent = new CalendarEvent(wi.id, title!.value, date, true, type!.color);
+    return FunctionResult.createSuccess(calendarEvent);
   }
 
   private loadWorkItemTypesAsync(): Promise<WorkItemType[]> {
