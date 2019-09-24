@@ -18,9 +18,14 @@ export class CalendarEventRepo {
 
   public async loadEventsAsync(searchConfig: SearchConfiguration): Promise<CalendarEvent[]> {
 
+    // tslint:disable-next-line: no-debugger
+    debugger;
     console.log(1);
     const workItems = await this.workItemRepo.loadByQueryAsync(searchConfig.queryId);
     console.log(2);
+
+    // tslint:disable-next-line: no-debugger
+    debugger;
 
     if (workItems.length === 0) {
       return new Array<CalendarEvent>();
