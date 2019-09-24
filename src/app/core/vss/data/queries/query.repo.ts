@@ -20,11 +20,14 @@ export class QueryRepo {
 
   public async loadByProjectAsync(projectId: string): Promise<Query[]> {
     const client = await this.proxyFactory.createWorkItemTrackingClientAsync();
-    let nativeQueries: QueryHierarchyItem[] = [];
+    const nativeQueries: QueryHierarchyItem[] = [];
+
+    console.log(client);
+    console.log(projectId);
 
     // The Client throws an error but the queries will load just fine
     try {
-      nativeQueries = await client.getQueries(projectId, 4, 2, false);
+      // nativeQueries = await client.getQueries(projectId, 4, 2, false);
     } catch {
     }
 
