@@ -6,8 +6,7 @@ import { VssWebContextFactory } from '../../contexts/web/services';
   providedIn: 'root'
 })
 export class WorkItemNavigationService {
-
-  constructor(private webContextFactory: VssWebContextFactory) { }
+  public constructor(private webContextFactory: VssWebContextFactory) { }
 
   public navigateToEdit(workItemId: number): void {
     const url = this.createEditUrl(workItemId);

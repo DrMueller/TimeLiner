@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class StorageService {
+export class SessionStorageService {
   public save<T>(key: string, item: T): void {
     const serializedItem = JSON.stringify(item);
     sessionStorage.setItem(key, serializedItem);

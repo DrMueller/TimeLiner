@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { StorageService } from 'src/app/core/storage/services';
+import { LocalStorageService } from 'src/app/core/storage/services';
 
 import { SearchConfiguration } from '../../models';
 
@@ -38,10 +38,10 @@ export class ConfigComponent implements OnInit {
   private _workItemDateFieldName: string;
   private _queryId: string;
 
-  public constructor(private storage: StorageService) { }
+  public constructor(private localStorage: LocalStorageService) { }
 
   public ngOnInit(): void {
-    this.workItemDateFieldName = this.storage.load(this._dateFieldKey) || '';
+    this.workItemDateFieldName = this.localStorage.load(this._dateFieldKey) || '';
   }
 
   public selectedQueryIdChanged(queryId: string): void {
@@ -58,6 +58,6 @@ export class ConfigComponent implements OnInit {
   }
 
   private persistWorkItemDateFieldName(): void {
-    this.storage.save(this._dateFieldKey, this._workItemDateFieldName);
+    this.localStorage.save(this._dateFieldKey, this._workItemDateFieldName);
   }
 }
