@@ -9,8 +9,14 @@ import { SearchConfiguration } from '../../models';
 })
 export class ConfigComponent {
   public set workTemDateFieldName(value: string) {
+    // tslint:disable-next-line: no-debugger
+    debugger;
     this._workItemDateFieldName = value;
-    this.omitChange();
+    this.emitChange();
+  }
+
+  public get workItemDateFieldName(): string {
+    return this._workItemDateFieldName;
   }
 
   @Output() public searchConfigChanged = new EventEmitter<SearchConfiguration>();
@@ -19,17 +25,16 @@ export class ConfigComponent {
   private _workItemDateFieldName: string;
   private _queryId: string;
 
-
   public selectedQueryIdChanged(queryId: string): void {
     this._queryId = queryId;
-    this.omitChange();
+    this.emitChange();
   }
 
   public refresh(): void {
     this.dataRefreshRequested.emit();
   }
 
-  private omitChange(): void {
+  private emitChange(): void {
     this.searchConfigChanged.emit(new SearchConfiguration(this._queryId, this._workItemDateFieldName));
   }
 
