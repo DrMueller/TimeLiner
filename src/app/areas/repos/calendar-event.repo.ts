@@ -5,7 +5,7 @@ import { FunctionResult } from 'src/app/utils/types';
 
 import { CalendarEvent, CalendarEventColors, SearchConfiguration } from '../models';
 
-import { CalendarEventColorFactory, WorkItemUrlFactory } from './factories';
+import { CalendarEventColorFactory } from './factories';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,6 @@ import { CalendarEventColorFactory, WorkItemUrlFactory } from './factories';
 export class CalendarEventRepo {
   public constructor(
     private workItemRepo: WorkItemRepo,
-    private workItemUrlFactory: WorkItemUrlFactory,
     private colorFactory: CalendarEventColorFactory) {
   }
 
@@ -41,11 +40,10 @@ export class CalendarEventRepo {
     const date = new Date(dateStr);
     date.setHours(0, 0, 0, 0);
     const typeColor = colors.find(f => f.workItemTypeName === wi.workItemTypeDescription)!;
-    const editUrl = this.workItemUrlFactory.createEditUrl(wi.id);
 
     const calendarEvent = new CalendarEvent(
+      wi.id.toString(),
       wi.title,
-      editUrl,
       date,
       true,
       typeColor.backgroundColor,
@@ -54,5 +52,4 @@ export class CalendarEventRepo {
 
     return FunctionResult.createSuccess(calendarEvent);
   }
-
 }

@@ -1,7 +1,7 @@
 export class CalendarEvent {
   constructor(
+    public readonly id: string,
     public readonly title: string,
-    public readonly url: string,
     public readonly date: Date,
     public readonly allDay: boolean,
     public readonly backgroundColor?: string,
