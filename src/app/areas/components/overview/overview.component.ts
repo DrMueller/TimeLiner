@@ -15,11 +15,12 @@ export class OverviewComponent {
   public constructor(private eventRepo: CalendarEventRepo) {
   }
 
-  public async dataRefreshRequested(): Promise<void> {
+  public async refreshData(): Promise<void> {
     this.events = await this.eventRepo.loadEventsAsync(this._config);
   }
 
-  public searchConfigChanged(config: SearchConfiguration): void {
+  public async searchConfigChanged(config: SearchConfiguration): Promise<void> {
     this._config = config;
+    await this.refreshData();
   }
 }

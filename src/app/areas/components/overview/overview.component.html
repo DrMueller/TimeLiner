@@ -2,9 +2,8 @@
   <div>
     <app-calendar [events]="events"></app-calendar>
   </div>
-
   <div>
-    <app-config (dataRefreshRequested)="dataRefreshRequested()" (searchConfigChanged)="searchConfigChanged($event)">
+    <app-config (dataRefreshRequested)="refreshData()" (searchConfigChanged)="searchConfigChanged($event)">
     </app-config>
   </div>
 </div>
