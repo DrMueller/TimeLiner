@@ -1,10 +1,8 @@
 /// <reference path="../../../../../../node_modules/vss-web-extension-sdk/typings/tfs.d.ts" />.
-/// <reference path="../../../../../../node_modules/vss-web-extension-sdk/typings/vss.d.ts" />.
 /// <reference path="../../../../../../node_modules/vss-web-extension-sdk/typings/VSS.SDK.d.ts" />.
 
 import { Injectable } from '@angular/core';
 import { WorkItemTrackingHttpClient } from 'TFS/WorkItemTracking/RestClient';
-import { JsonPatchDocument, Operation } from 'VSS/WebApi/Contracts';
 
 import { ProxyFactory } from '../common';
 
@@ -26,8 +24,8 @@ export class WorkItemRepo {
 
     // tslint:disable-next-line: no-debugger
     debugger;
-    const tra = <JsonPatchDocument>{
-      op: Operation.Add,
+    const tra = {
+      op: 0,
       path: '/fields/system.title',
       value: 'tra'
     };
