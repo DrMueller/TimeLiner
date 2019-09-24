@@ -11,16 +11,15 @@ import { SearchConfiguration } from '../../models';
 export class ConfigComponent implements OnInit {
   public set workItemDateFieldName(value: string) {
     this._workItemDateFieldName = value;
+    this.emitChange();
 
     if (this._timerId) {
       window.clearTimeout(this._timerId);
     }
 
     this._timerId = window.setTimeout(() => {
-      console.log('in timer');
-      this.emitChange();
       this.persistWorkItemDateFieldName();
-    }, 2000);
+    }, 500);
   }
 
   public get workItemDateFieldName(): string {
