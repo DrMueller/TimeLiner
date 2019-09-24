@@ -12,8 +12,16 @@ export class CalendarComponent {
   @Input() public events: CalendarEvent[] = [];
   public calendarPlugins = [dayGridPlugin];
 
+  public buttonIcons = {
+    prev: '',
+    next: '',
+    prevYear: '',
+    nextYear: ''
+  };
+
   public eventClicked(info: any) {
-    const eventUrl = info.event.url;
-    window.open(eventUrl);
+    console.log(info);
+    // const eventUrl = info.event.url;
+    // window.open(eventUrl);
   }
 }
