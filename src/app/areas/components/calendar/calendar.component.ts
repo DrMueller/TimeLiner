@@ -30,9 +30,6 @@ export class CalendarComponent {
   public constructor(private urlFactory: WorkItemUrlFactory) { }
 
   public eventClicked(info: any) {
-    console.log(info);
-    // tslint:disable-next-line: no-debugger
-    debugger;
     const eventId = parseInt(info.event.id, 10);
     const url = this.urlFactory.createEditUrl(eventId);
     window.open(url);

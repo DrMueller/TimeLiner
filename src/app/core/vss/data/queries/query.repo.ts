@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { QueryHierarchyItem } from 'TFS/WorkItemTracking/Contracts';
 
 import { ProxyFactory } from '../common';
 
@@ -19,11 +20,14 @@ export class QueryRepo {
 
   public async loadByProjectAsync(projectId: string): Promise<Query[]> {
     const client = await this.proxyFactory.createWorkItemTrackingClientAsync();
-    // tslint:disable-next-line: no-debugger
-    debugger;
-    const nativeQueries = await client.getQueries(projectId, 4, 2, false);
-    // tslint:disable-next-line: no-debugger
-    debugger;
+    let nativeQueries: QueryHierarchyItem[] = [];
+
+    // The Client throws an error but the queries will load just fine
+    try {
+      nativeQueries = await client.getQueries(projectId, 4, 2, false);
+    } catch {
+    }
+
     const queries = nativeQueries.map(nativeQuery => this.adapter.adapt(nativeQuery));
     return queries;
   }
