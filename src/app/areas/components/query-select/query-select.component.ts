@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { StorageService } from 'src/app/core/storage/services';
 import { VssWebContextFactory } from 'src/app/core/vss/contexts/web/services/vss-web-context.factory';
 import { Query } from 'src/app/core/vss/data/queries/models';
 import { QueryRepo } from 'src/app/core/vss/data/queries/query.repo';
@@ -16,15 +17,18 @@ export class QuerySelectComponent implements OnInit {
   public set selectedQueryId(value: string) {
     this._selectedQueryId = value;
     this.selectedQueryIdChanged.emit(value);
+    this.storage.save(this.QueryFieldKey, value);
   }
 
   @Output() public selectedQueryIdChanged = new EventEmitter<string>();
 
   public queries: Query[];
   private _selectedQueryId: string;
+  private readonly QueryFieldKey = 'QueryFieldKey';
 
   public constructor(
     private contextFactory: VssWebContextFactory,
+    private storage: StorageService,
     private queryRepo: QueryRepo) { }
 
   public async ngOnInit(): Promise<void> {
@@ -33,6 +37,7 @@ export class QuerySelectComponent implements OnInit {
     const flatQueries = new Array<Query>();
     queries.forEach(query => this.flatten(query, flatQueries));
     this.queries = flatQueries;
+    this.selectedQueryId = this.storage.load(this.QueryFieldKey) || '';
   }
 
   private flatten(query: Query, items: Query[]): void {

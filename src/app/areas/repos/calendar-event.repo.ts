@@ -21,14 +21,14 @@ export class CalendarEventRepo {
     const workItemTypes = await this.loadWorkItemTypesAsync();
     const workItems = await this.workItemRepo.loadByQueryAsync(searchConfig.queryId);
     const calendarEvents = workItems
-      .map(wi => this.tryMapping(wi, searchConfig.dateFieldName, workItemTypes))
+      .map(wi => this.tryToMap(wi, searchConfig.dateFieldName, workItemTypes))
       .filter(eventResult => eventResult.isSuccess)
       .map(eventResult => eventResult.result!);
 
     return calendarEvents;
   }
 
-  private tryMapping(
+  private tryToMap(
     wi: WorkItem,
     dateFieldName: string,
     workItemTypes: WorkItemType[]): FunctionResult<CalendarEvent> {
@@ -75,8 +75,6 @@ export class CalendarEventRepo {
     let g: any;
     let b: any;
 
-    // tslint:disable-next-line: no-debugger
-    debugger;
     if (color.match(/^rgb/)) {
       color = color.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$/);
       r = color[1];
