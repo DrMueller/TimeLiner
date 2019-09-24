@@ -33,18 +33,14 @@ export class CalendarEventRepo {
     // tslint:disable-next-line: no-debugger
     debugger;
 
-    const date = <string>deadline!.value;
-    const beginDate = new Date(date);
-    beginDate.setHours(0, 0, 0, 0);
-
-    const endDate = new Date(date);
-    endDate.setHours(25, 59, 59, 999);
+    const dateStr = <string>deadline!.value;
+    const date = new Date(dateStr);
+    date.setHours(0, 0, 0, 0);
 
     const workItemType = wi.findField('System.WorkItemType');
     const type = workItemTypes.find(f => f.name === workItemType!.value);
 
-
-    return new CalendarEvent(wi.id, title!.value, beginDate, endDate, type!.color);
+    return new CalendarEvent(wi.id, title!.value, date, true, type!.color);
   }
 
   private loadWorkItemTypesAsync(): Promise<WorkItemType[]> {
