@@ -1,5 +1,4 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { timer } from 'rxjs';
 import { StorageService } from 'src/app/core/storage/services';
 
 import { SearchConfiguration } from '../../models';
