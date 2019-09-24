@@ -19,6 +19,13 @@ export class WorkItemRepo {
     private adapter: WorkItemAdapter) {
   }
 
+  // public async saveWorkItemAsync(workItem: WorkItem): Promise<void> {
+  //   const client = await this.proxyFactory.createWorkItemTrackingClientAsync();
+  //   const tra = new JsonPatchDocument();
+
+  //   client.updateWorkItem();
+  // }
+
   public async loadByIdsAsync(...ids: number[]): Promise<WorkItem[]> {
     const client = await this.proxyFactory.createWorkItemTrackingClientAsync();
     return this.loadAndMapWorkItemsAsync(client, ids);

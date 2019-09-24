@@ -20,7 +20,12 @@ export class WorkItemTypeRepo {
 
   public async loadByProjectAsync(projectId: string): Promise<WorkItemType[]> {
     const client = await this.proxyFactory.createWorkItemTrackingClientAsync();
+    // tslint:disable-next-line: no-debugger
+    debugger;
     const nativeTypes = await client.getWorkItemTypes(projectId);
+    // tslint:disable-next-line: no-debugger
+    debugger;
+
     const types = nativeTypes.map(nativeWorkItem => this.adapter.adapt(nativeWorkItem));
     return types;
   }
