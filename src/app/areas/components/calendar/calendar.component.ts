@@ -13,6 +13,7 @@ export class CalendarComponent {
   public calendarPlugins = [dayGridPlugin];
 
   public eventClicked(info: any) {
+    // tslint:disable-next-line: no-debugger
     debugger;
     console.log(info);
   }
