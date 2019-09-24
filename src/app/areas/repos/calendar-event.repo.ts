@@ -81,8 +81,7 @@ export class CalendarEventRepo {
       g = color[2];
       b = color[3];
     } else {
-      color = +('0x' + color.slice(1).replace(
-        color.length < 5 && /./g, '$&$&'));
+      color = +('0x' + color.slice(1).replace(color.length < 5 && /./g, '$&$&'));
 
       // tslint:disable-next-line: no-bitwise
       r = color >> 16;

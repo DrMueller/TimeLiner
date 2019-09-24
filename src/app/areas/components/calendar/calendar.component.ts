@@ -11,4 +11,9 @@ import { CalendarEvent } from '../../models';
 export class CalendarComponent {
   @Input() public events: CalendarEvent[] = [];
   public calendarPlugins = [dayGridPlugin];
+
+  public eventClicked(info: any) {
+    debugger;
+    console.log(info);
+  }
 }
