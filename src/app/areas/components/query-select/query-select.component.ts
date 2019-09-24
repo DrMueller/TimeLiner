@@ -17,14 +17,14 @@ export class QuerySelectComponent implements OnInit {
   public set selectedQueryId(value: string) {
     this._selectedQueryId = value;
     this.selectedQueryIdChanged.emit(value);
-    this.storage.save(this.QueryFieldKey, value);
+    this.storage.save(this._queryFieldKey, value);
   }
 
   @Output() public selectedQueryIdChanged = new EventEmitter<string>();
 
   public queries: Query[];
   private _selectedQueryId: string;
-  private readonly QueryFieldKey = 'QueryFieldKey';
+  private readonly _queryFieldKey = 'QueryFieldKey';
 
   public constructor(
     private contextFactory: VssWebContextFactory,
@@ -37,7 +37,7 @@ export class QuerySelectComponent implements OnInit {
     const flatQueries = new Array<Query>();
     queries.forEach(query => this.flatten(query, flatQueries));
     this.queries = flatQueries;
-    this.selectedQueryId = this.storage.load(this.QueryFieldKey) || '';
+    this.selectedQueryId = this.storage.load(this._queryFieldKey) || '';
   }
 
   private flatten(query: Query, items: Query[]): void {

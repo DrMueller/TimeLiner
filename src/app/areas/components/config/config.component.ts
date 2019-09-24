@@ -33,7 +33,7 @@ export class ConfigComponent implements OnInit {
   @Output() public searchConfigChanged = new EventEmitter<SearchConfiguration>();
   @Output() public dataRefreshRequested = new EventEmitter();
 
-  private readonly DateFieldKey = 'DateFieldKey';
+  private readonly _dateFieldKey = 'DateFieldKey';
   private _timerId: number | undefined;
   private _workItemDateFieldName: string;
   private _queryId: string;
@@ -41,7 +41,7 @@ export class ConfigComponent implements OnInit {
   public constructor(private storage: StorageService) { }
 
   public ngOnInit(): void {
-    this.workItemDateFieldName = this.storage.load(this.DateFieldKey) || '';
+    this.workItemDateFieldName = this.storage.load(this._dateFieldKey) || '';
   }
 
   public selectedQueryIdChanged(queryId: string): void {
@@ -58,6 +58,6 @@ export class ConfigComponent implements OnInit {
   }
 
   private persistWorkItemDateFieldName(): void {
-    this.storage.save(this.DateFieldKey, this._workItemDateFieldName);
+    this.storage.save(this._dateFieldKey, this._workItemDateFieldName);
   }
 }

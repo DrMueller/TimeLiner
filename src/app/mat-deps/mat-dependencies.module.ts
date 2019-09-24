@@ -9,7 +9,8 @@ import {
   MatMenuModule, MatOptionModule, MatPaginatorModule,
   MatProgressBarModule, MatProgressSpinnerModule, MatRadioModule, MatSelectModule, MatSidenavModule, MatSnackBarModule, MatSortModule,
   MatTableModule,
-  MatToolbarModule
+  MatToolbarModule,
+  MatTreeModule
 } from '@angular/material';
 
 @NgModule({
@@ -37,6 +38,7 @@ import {
     MatRadioModule,
     MatSnackBarModule,
     MatTableModule,
+    MatTreeModule,
     MatToolbarModule,
     MatSidenavModule,
     ReactiveFormsModule
