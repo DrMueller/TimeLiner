@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ColorService } from 'src/app/core/colors/services';
 import { VssWebContextFactory } from 'src/app/core/vss/contexts/web/services';
-import { WorkItemTypeRepo } from 'src/app/core/vss/data/work-items';
 import { WorkItemType } from 'src/app/core/vss/data/work-items/models';
+import { WorkItemTypeRepo } from 'src/app/core/vss/data/work-items/repos';
 
 import { CalendarEventColors } from '../../models';
 

@@ -1,12 +1,19 @@
 <div class="config-container">
   <div class="config-container-item">
-    <app-query-select (selectedQueryIdChanged)="selectedQueryIdChanged($event)"></app-query-select>
+    <app-about></app-about>
   </div>
+
   <div class="config-container-item">
-    <input matInput type="text" [(ngModel)]="workItemDateFieldName" placeholder="Date field name">
-  </div>
-  <div class="config-container-item">
-    <button mat-stroked-button color="primary" [disabled]="!canRefresh" (click)="refresh()">Refresh</button>
-    <button mat-stroked-button color="primary"(click)="test()">Test</button>
+    <div class="config-entries-container">
+      <div class="config-entries-container-item">
+        <app-query-select (selectedQueryIdChanged)="selectedQueryIdChanged($event)"></app-query-select>
+      </div>
+      <div class="config-entries-container-item">
+        <input matInput type="text" [(ngModel)]="workItemDateFieldName" placeholder="Date field name">
+      </div>
+      <div class="config-entries-container-item">
+        <button mat-stroked-button color="primary" [disabled]="!canRefresh" (click)="refresh()">Refresh</button>
+      </div>
+    </div>
   </div>
 </div>

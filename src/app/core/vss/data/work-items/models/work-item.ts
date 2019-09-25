@@ -5,7 +5,7 @@ import { WorkItemField } from '.';
 export class WorkItem {
   public constructor(
     public readonly id: number,
-    private readonly fields: WorkItemField[]) {
+    public readonly fields: WorkItemField[]) {
   }
 
   public get title(): string {

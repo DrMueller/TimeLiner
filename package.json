@@ -31,6 +31,7 @@
     "@fullcalendar/angular": "^4.3.1",
     "@fullcalendar/core": "^4.3.1",
     "@fullcalendar/daygrid": "^4.3.0",
+    "@fullcalendar/interaction": "^4.3.0",
     "rxjs": "~6.4.0",
     "tfx-cli": "^0.7.9",
     "tslib": "^1.10.0",

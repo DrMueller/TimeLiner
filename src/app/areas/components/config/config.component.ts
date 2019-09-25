@@ -1,7 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { LocalStorageService } from 'src/app/core/storage/services';
-import { WorkItemRepo } from 'src/app/core/vss/data/work-items';
-import { WorkItem } from 'src/app/core/vss/data/work-items/models';
 
 import { SearchConfiguration } from '../../models';
 
@@ -41,16 +39,10 @@ export class ConfigComponent implements OnInit {
   private _queryId: string;
 
   public constructor(
-    private localStorage: LocalStorageService,
-    private workItemRepo: WorkItemRepo) { }
+    private localStorage: LocalStorageService) { }
 
   public ngOnInit(): void {
     this.workItemDateFieldName = this.localStorage.load(this._dateFieldKey) || '';
-  }
-
-  public async test(): Promise<void> {
-    const wi = new WorkItem(1109, []);
-    await this.workItemRepo.updateWorkItemAsync(wi);
   }
 
   public selectedQueryIdChanged(queryId: string): void {
