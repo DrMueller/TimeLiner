@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as nat from 'TFS/WorkItemTracking/Contracts';
 
-import { WorkItemType } from '../../repos/models';
+import { WorkItemType } from '../../models';
 
 @Injectable({
   providedIn: 'root'

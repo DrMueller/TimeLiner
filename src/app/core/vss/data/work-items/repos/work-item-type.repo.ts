@@ -5,8 +5,7 @@ import { Injectable } from '@angular/core';
 
 import { ProxyFactory } from '../../common';
 import { WorkItemTypeAdapter } from '../data-modeling/adapters';
-
-import { WorkItemType } from './models';
+import { WorkItemType } from '../models';
 
 @Injectable({
   providedIn: 'root'

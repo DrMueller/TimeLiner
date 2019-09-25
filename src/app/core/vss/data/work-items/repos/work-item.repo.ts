@@ -6,8 +6,7 @@ import { WorkItemTrackingHttpClient } from 'TFS/WorkItemTracking/RestClient';
 
 import { ProxyFactory } from '../../common';
 import { WorkItemAdapter } from '../data-modeling/adapters';
-
-import { WorkItem } from './models';
+import { WorkItem } from '../models';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +23,11 @@ export class WorkItemRepo {
     const patchDocuments = this.adapter.adaptToPatchDocuments(workItem);
     // tslint:disable-next-line: no-debugger
     debugger;
+
+    if (patchDocuments.length === 0) {
+      return;
+    }
+
     await client.updateWorkItem(patchDocuments, workItem.id);
   }
 
