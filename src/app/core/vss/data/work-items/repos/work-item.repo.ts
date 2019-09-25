@@ -1,13 +1,13 @@
-/// <reference path="../../../../../../node_modules/vss-web-extension-sdk/typings/tfs.d.ts" />.
-/// <reference path="../../../../../../node_modules/vss-web-extension-sdk/typings/VSS.SDK.d.ts" />.
+/// <reference path="../../../../../../../node_modules/vss-web-extension-sdk/typings/tfs.d.ts" />.
+/// <reference path="../../../../../../../node_modules/vss-web-extension-sdk/typings/VSS.SDK.d.ts" />.
 
 import { Injectable } from '@angular/core';
 import { WorkItemTrackingHttpClient } from 'TFS/WorkItemTracking/RestClient';
 
-import { ProxyFactory } from '../common';
+import { ProxyFactory } from '../../common';
+import { WorkItemAdapter } from '../data-modeling/adapters';
 
 import { WorkItem } from './models';
-import { WorkItemAdapter } from './servants';
 
 @Injectable({
   providedIn: 'root'
@@ -21,16 +21,10 @@ export class WorkItemRepo {
 
   public async updateWorkItemAsync(workItem: WorkItem): Promise<void> {
     const client = await this.proxyFactory.createWorkItemTrackingClientAsync();
-
+    const patchDocuments = this.adapter.adaptToPatchDocuments(workItem);
     // tslint:disable-next-line: no-debugger
     debugger;
-    const tra = [{
-      op: 0,
-      path: '/fields/System.Title',
-      value: 'tra'
-    }];
-
-    await client.updateWorkItem(tra, workItem.id);
+    await client.updateWorkItem(patchDocuments, workItem.id);
   }
 
   public async loadByIdsAsync(...ids: number[]): Promise<WorkItem[]> {
@@ -51,7 +45,7 @@ export class WorkItemRepo {
     }
 
     const nativeWorkItems = await client.getWorkItems(ids);
-    const workItems = nativeWorkItems.map(nativeWorkItem => this.adapter.adapt(nativeWorkItem));
+    const workItems = nativeWorkItems.map(nativeWorkItem => this.adapter.adaptToModel(nativeWorkItem));
     return workItems;
   }
 }

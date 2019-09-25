@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { WorkItemRepo } from 'src/app/core/vss/data/work-items';
-import { WorkItem } from 'src/app/core/vss/data/work-items/models';
+import { WorkItemRepo } from 'src/app/core/vss/data/work-items/repos';
+import { WorkItem } from 'src/app/core/vss/data/work-items/repos/models';
 import { FunctionResult } from 'src/app/utils/types';
 
 import { CalendarEvent, CalendarEventColors, SearchConfiguration } from '../models';

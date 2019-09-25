@@ -1,15 +1,26 @@
 import { Injectable } from '@angular/core';
 import * as nat from 'TFS/WorkItemTracking/Contracts';
 
-import { WorkItem, WorkItemField } from '../models';
+import { WorkItem, WorkItemField } from '../../repos/models';
+import { JsonPatchDocument, Operation } from '../models';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WorkItemAdapter {
-  public adapt(nativeWorkItem: nat.WorkItem): WorkItem {
+  public adaptToModel(nativeWorkItem: nat.WorkItem): WorkItem {
     const fields = this.adaptFields(nativeWorkItem.fields);
     return new WorkItem(nativeWorkItem.id, fields);
+  }
+
+  public adaptToPatchDocuments(workItem: WorkItem): JsonPatchDocument[] {
+    const result = workItem.fields.map(field =>
+      new JsonPatchDocument(
+        Operation.Add,
+        `/fields/${field.name}`,
+        field.value));
+
+    return result;
   }
 
   private adaptFields(field: { [key: string]: any }): WorkItemField[] {
