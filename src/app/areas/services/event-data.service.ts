@@ -6,7 +6,7 @@ import { WorkItemRepo } from 'src/app/core/vss/data/work-items/repos';
 })
 export class EventDataService {
 
-  constructor(private workItemRepo: WorkItemRepo) { }
+  public constructor(private workItemRepo: WorkItemRepo) { }
 
   public async updateWorkItemWithNewDateAsync(workItemId: number, dateFieldName: string, date: Date): Promise<void> {
     const workItem = await this.workItemRepo.loadByIdAsync(workItemId);
