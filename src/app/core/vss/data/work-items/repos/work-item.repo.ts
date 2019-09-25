@@ -21,7 +21,6 @@ export class WorkItemRepo {
   public async updateWorkItemAsync(workItem: WorkItem): Promise<void> {
     const client = await this.proxyFactory.createWorkItemTrackingClientAsync();
     const patchDocuments = this.adapter.adaptToPatchDocuments(workItem);
-    // tslint:disable-next-line: no-debugger
 
     if (patchDocuments.length === 0) {
       return;
