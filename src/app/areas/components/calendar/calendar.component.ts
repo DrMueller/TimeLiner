@@ -36,7 +36,7 @@ export class CalendarComponent {
   public constructor(
     private workItemNavigator: WorkItemNavigationService) { }
 
-  public eventClicked(info: any) {
+  public eventClicked(info: any): void {
     const eventId = parseInt(info.event.id, 10);
     this.workItemNavigator.navigateToEdit(eventId);
   }
