@@ -22,6 +22,9 @@ export class WorkItemRepo {
     const client = await this.proxyFactory.createWorkItemTrackingClientAsync();
     const patchDocuments = this.adapter.adaptToPatchDocuments(workItem);
 
+    // tslint:disable-next-line: no-debugger
+    debugger;
+
     if (patchDocuments.length === 0) {
       return;
     }
@@ -31,14 +34,12 @@ export class WorkItemRepo {
 
   public async loadByIdsAsync(ids: number[]): Promise<WorkItem[]> {
     const client = await this.proxyFactory.createWorkItemTrackingClientAsync();
-    return this.loadAndMapWorkItemsAsync(client, ...ids);
+    return await this.loadAndMapWorkItemsAsync(client, ...ids);
   }
 
   public async loadByIdAsync(id: number): Promise<WorkItem> {
     const client = await this.proxyFactory.createWorkItemTrackingClientAsync();
-    // tslint:disable-next-line: no-debugger
-    debugger;
-    const workItems = this.loadAndMapWorkItemsAsync(client, id);
+    const workItems = await this.loadAndMapWorkItemsAsync(client, id);
     return workItems[0];
   }
 
@@ -46,7 +47,7 @@ export class WorkItemRepo {
     const client = await this.proxyFactory.createWorkItemTrackingClientAsync();
     const queryResult = await client.queryById(queryId);
     const workItemIds = queryResult.workItems.map(wi => wi.id);
-    return this.loadAndMapWorkItemsAsync(client, ...workItemIds);
+    return await this.loadAndMapWorkItemsAsync(client, ...workItemIds);
   }
 
   private async loadAndMapWorkItemsAsync(client: WorkItemTrackingHttpClient, ...ids: number[]): Promise<WorkItem[]> {

@@ -10,6 +10,8 @@ export class EventDataService {
 
   public async updateWorkItemWithNewDateAsync(workItemId: number, dateFieldName: string, date: Date): Promise<void> {
     const workItem = await this.workItemRepo.loadByIdAsync(workItemId);
+    // tslint:disable-next-line: no-debugger
+    debugger;
     workItem.updateField(dateFieldName, date);
     await this.workItemRepo.updateAsync(workItem);
   }
