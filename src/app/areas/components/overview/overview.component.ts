@@ -19,7 +19,7 @@ export class OverviewComponent {
   }
 
   public async refreshData(): Promise<void> {
-    if (this.searchConfig.isValid) {
+    if (this.searchConfig && this.searchConfig.isValid) {
       this.events = await this.eventRepo.loadEventsAsync(this.searchConfig);
     }
   }
