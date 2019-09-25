@@ -47,8 +47,6 @@ export class CalendarComponent {
   }
 
   public async eventDropped(info: any): Promise<void> {
-    // tslint:disable-next-line: no-debugger
-    debugger;
     const workItemId = parseInt(info.event.id, 10);
     const newDate = info.event.start;
 
