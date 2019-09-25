@@ -25,8 +25,6 @@ export class OverviewComponent {
   }
 
   public async calendarEventDropped(droppedEvent: DroppedCalendarEvent): Promise<void> {
-    // tslint:disable-next-line: no-debugger
-    debugger;
     await this.dataService.updateWorkItemWithNewDateAsync(
       droppedEvent.workItemId,
       this.searchConfig.dateFieldName,

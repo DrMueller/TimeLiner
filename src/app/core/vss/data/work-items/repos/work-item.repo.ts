@@ -36,6 +36,8 @@ export class WorkItemRepo {
 
   public async loadByIdAsync(id: number): Promise<WorkItem> {
     const client = await this.proxyFactory.createWorkItemTrackingClientAsync();
+    // tslint:disable-next-line: no-debugger
+    debugger;
     const workItems = this.loadAndMapWorkItemsAsync(client, id);
     return workItems[0];
   }
