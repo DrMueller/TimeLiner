@@ -24,11 +24,11 @@ export class WorkItemRepo {
 
     // tslint:disable-next-line: no-debugger
     debugger;
-    const tra = {
+    const tra = [{
       op: 0,
-      path: '/fields/system.title',
+      path: '/fields/System.Title',
       value: 'tra'
-    };
+    }];
 
     await client.updateWorkItem(tra, workItem.id);
   }
