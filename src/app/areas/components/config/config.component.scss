@@ -1,10 +1,22 @@
 .config-container {
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
+  width: 100%;
   align-items: center;
 }
 
 .config-container-item {
+  flex-basis: 0;
+  flex-grow: 1;
+}
+
+.config-entries-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.config-entries-container-item {
   margin-left: 10px;
 }
