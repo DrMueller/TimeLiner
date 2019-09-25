@@ -23,10 +23,6 @@ export class WorkItemRepo {
     const patchDocuments = this.adapter.adaptToPatchDocuments(workItem);
     // tslint:disable-next-line: no-debugger
 
-    https: // stackoverflow.com/questions/34014578/tfs-update-workitem-erroryou-must-pass-a-valid-patch-document-in-the-body-of-th
-
-    debugger;
-
     if (patchDocuments.length === 0) {
       return;
     }
