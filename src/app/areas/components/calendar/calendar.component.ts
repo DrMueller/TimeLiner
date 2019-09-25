@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import { WorkItemNavigationService } from 'src/app/core/vss/navigation/services/work-item-navigation.service';
+import interactionPlugin from '@fullcalendar/interaction';
+import { WorkItemNavigationService } from 'src/app/core/vss/navigation/services';
 
 import { CalendarEvent } from '../../models';
 
@@ -11,7 +12,10 @@ import { CalendarEvent } from '../../models';
 })
 export class CalendarComponent {
   @Input() public events: CalendarEvent[] = [];
-  public calendarPlugins = [dayGridPlugin];
+  public calendarPlugins = [
+    dayGridPlugin,
+    interactionPlugin
+  ];
 
   public buttonText = {
     prev: '<',
