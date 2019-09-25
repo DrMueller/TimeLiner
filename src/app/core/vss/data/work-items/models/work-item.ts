@@ -1,3 +1,4 @@
+import * as _ from 'lodash';
 import { FunctionResult } from 'src/app/utils/types';
 
 import { WorkItemField } from '.';
@@ -5,7 +6,7 @@ import { WorkItemField } from '.';
 export class WorkItem {
   public constructor(
     public readonly id: number,
-    public readonly fields: WorkItemField[]) {
+    private readonly fields: WorkItemField[]) {
   }
 
   public get title(): string {
@@ -22,6 +23,18 @@ export class WorkItem {
       return FunctionResult.createFailure<WorkItemField>();
     }
 
-    return FunctionResult.createSuccess(field);
+    const fieldCopy = _.cloneDeep(field);
+    return FunctionResult.createSuccess(fieldCopy);
+  }
+
+  public updateField(name: string, newValue: any): void {
+    const field = this.fields.find(f => f.name === name);
+    if (field) {
+      field.updateValue(newValue);
+    }
+  }
+
+  public getDirtyFields(): WorkItemField[] {
+    return this.fields.filter(f => f.isDirty);
   }
 }

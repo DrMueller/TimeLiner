@@ -18,7 +18,7 @@ export class WorkItemRepo {
     private adapter: WorkItemAdapter) {
   }
 
-  public async updateWorkItemAsync(workItem: WorkItem): Promise<void> {
+  public async updateAsync(workItem: WorkItem): Promise<void> {
     const client = await this.proxyFactory.createWorkItemTrackingClientAsync();
     const patchDocuments = this.adapter.adaptToPatchDocuments(workItem);
 
@@ -29,19 +29,25 @@ export class WorkItemRepo {
     await client.updateWorkItem(patchDocuments, workItem.id);
   }
 
-  public async loadByIdsAsync(...ids: number[]): Promise<WorkItem[]> {
+  public async loadByIdsAsync(ids: number[]): Promise<WorkItem[]> {
     const client = await this.proxyFactory.createWorkItemTrackingClientAsync();
-    return this.loadAndMapWorkItemsAsync(client, ids);
+    return this.loadAndMapWorkItemsAsync(client, ...ids);
+  }
+
+  public async loadByIdAsync(id: number): Promise<WorkItem> {
+    const client = await this.proxyFactory.createWorkItemTrackingClientAsync();
+    const workItems = this.loadAndMapWorkItemsAsync(client, id);
+    return workItems[0];
   }
 
   public async loadByQueryAsync(queryId: string): Promise<WorkItem[]> {
     const client = await this.proxyFactory.createWorkItemTrackingClientAsync();
     const queryResult = await client.queryById(queryId);
     const workItemIds = queryResult.workItems.map(wi => wi.id);
-    return this.loadAndMapWorkItemsAsync(client, workItemIds);
+    return this.loadAndMapWorkItemsAsync(client, ...workItemIds);
   }
 
-  private async loadAndMapWorkItemsAsync(client: WorkItemTrackingHttpClient, ids: number[]): Promise<WorkItem[]> {
+  private async loadAndMapWorkItemsAsync(client: WorkItemTrackingHttpClient, ...ids: number[]): Promise<WorkItem[]> {
     if (ids.length === 0) {
       return new Array<WorkItem>();
     }

@@ -3,7 +3,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { WorkItemNavigationService } from 'src/app/core/vss/navigation/services';
 
-import { CalendarEvent, DroppedCalendarEvent } from '../../models';
+import { CalendarEvent, DroppedCalendarEvent, SearchConfiguration } from '../../models';
 
 @Component({
   selector: 'app-calendar',
@@ -12,6 +12,8 @@ import { CalendarEvent, DroppedCalendarEvent } from '../../models';
 })
 export class CalendarComponent {
   @Output() public calendarEventDropped = new EventEmitter<DroppedCalendarEvent>();
+
+  @Input() public searchConfig: SearchConfiguration;
 
   @Input() public events: CalendarEvent[] = [];
   public calendarPlugins = [
@@ -32,6 +34,10 @@ export class CalendarComponent {
     prevYear: '',
     nextYear: ''
   };
+
+  public get isEditable(): boolean {
+    return this.searchConfig && this.searchConfig.isValid;
+  }
 
   public constructor(
     private workItemNavigator: WorkItemNavigationService) { }

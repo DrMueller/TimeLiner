@@ -11,7 +11,7 @@ import { EventDataService } from '../../services';
 })
 export class OverviewComponent {
   public events: CalendarEvent[] = [];
-  private _config: SearchConfiguration;
+  public searchConfig: SearchConfiguration;
 
   public constructor(
     private eventRepo: CalendarEventRepo,
@@ -19,15 +19,22 @@ export class OverviewComponent {
   }
 
   public async refreshData(): Promise<void> {
-    this.events = await this.eventRepo.loadEventsAsync(this._config);
+    if (this.searchConfig.isValid) {
+      this.events = await this.eventRepo.loadEventsAsync(this.searchConfig);
+    }
   }
 
   public async calendarEventDropped(droppedEvent: DroppedCalendarEvent): Promise<void> {
-    this.dataService.;
+    // tslint:disable-next-line: no-debugger
+    debugger;
+    await this.dataService.updateWorkItemWithNewDateAsync(
+      droppedEvent.workItemId,
+      this.searchConfig.dateFieldName,
+      droppedEvent.newDate);
   }
 
   public async searchConfigChanged(config: SearchConfiguration): Promise<void> {
-    this._config = config;
+    this.searchConfig = config;
     await this.refreshData();
   }
 }

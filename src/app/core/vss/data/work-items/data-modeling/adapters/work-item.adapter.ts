@@ -14,7 +14,7 @@ export class WorkItemAdapter {
   }
 
   public adaptToPatchDocuments(workItem: WorkItem): JsonPatchDocument[] {
-    const result = workItem.fields.map(field =>
+    const result = workItem.getDirtyFields().map(field =>
       new JsonPatchDocument(
         Operation.Add,
         `/fields/${field.name}`,

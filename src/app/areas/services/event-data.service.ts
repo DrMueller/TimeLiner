@@ -1,13 +1,19 @@
 import { Injectable } from '@angular/core';
+import { WorkItemRepo } from 'src/app/core/vss/data/work-items/repos';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EventDataService {
 
-  constructor() { }
+  constructor(private workItemRepo: WorkItemRepo) { }
 
-  // public updateWorkItemWithNewDateAsync(workItemId: number, dateFieldName: string, date: Date): Promise<void> {
+  public async updateWorkItemWithNewDateAsync(workItemId: number, dateFieldName: string, date: Date): Promise<void> {
+    const workItem = await this.workItemRepo.loadByIdAsync(workItemId);
+    workItem.updateField(dateFieldName, date);
 
-  // }
+    // tslint:disable-next-line: no-debugger
+    debugger;
+    await this.workItemRepo.updateAsync(workItem);
+  }
 }

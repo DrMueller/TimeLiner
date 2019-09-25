@@ -17,10 +17,6 @@ export class CalendarEventRepo {
   }
 
   public async loadEventsAsync(searchConfig: SearchConfiguration): Promise<CalendarEvent[]> {
-    if (!searchConfig.dateFieldName || !searchConfig.queryId) {
-      return new Array<CalendarEvent>();
-    }
-
     const workItems = await this.workItemRepo.loadByQueryAsync(searchConfig.queryId);
     if (workItems.length === 0) {
       return new Array<CalendarEvent>();
