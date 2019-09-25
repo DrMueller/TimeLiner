@@ -12,7 +12,6 @@ import { CalendarEvent, DroppedCalendarEvent, SearchConfiguration } from '../../
 })
 export class CalendarComponent {
   @Output() public calendarEventDropped = new EventEmitter<DroppedCalendarEvent>();
-
   @Input() public searchConfig: SearchConfiguration;
 
   @Input() public events: CalendarEvent[] = [];
