@@ -34,7 +34,9 @@ export class OverviewComponent {
   }
 
   public async searchConfigChanged(config: SearchConfiguration): Promise<void> {
-    this.searchConfig = config;
-    await this.refreshData();
+    setTimeout(async () => {
+      this.searchConfig = config;
+      await this.refreshData();
+    });
   }
 }
