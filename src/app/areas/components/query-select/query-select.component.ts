@@ -59,12 +59,7 @@ export class QuerySelectComponent implements OnInit {
     this.dataSource.data = queries;
   }
 
-
-  public hasChild(query: Query): boolean {
-    // tslint:disable-next-line: no-debugger
-    debugger;
-    return query.children && query.children.length > 0;
-  }
+  public hasChild = (_: number, query: Query) => !!query.children && query.children.length > 0;
 
   private flatten(query: Query, items: Query[]): void {
     items.push(query);
