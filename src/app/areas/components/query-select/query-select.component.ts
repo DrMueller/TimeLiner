@@ -1,16 +1,8 @@
-import { FlatTreeControl } from '@angular/cdk/tree';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material';
 import { LocalStorageService } from 'src/app/core/storage/services';
 import { VssWebContextFactory } from 'src/app/core/vss/contexts/web/services/vss-web-context.factory';
 import { Query } from 'src/app/core/vss/data/queries/models';
 import { QueryRepo } from 'src/app/core/vss/data/queries/query.repo';
-
-interface INode {
-  expandable: boolean;
-  name: string;
-  level: number;
-}
 
 @Component({
   selector: 'app-query-select',
@@ -30,18 +22,7 @@ export class QuerySelectComponent implements OnInit {
 
   @Output() public selectedQueryIdChanged = new EventEmitter<string>();
 
-  public treeControl = new FlatTreeControl<INode>(
-    node => node.level,
-    node => node.expandable);
-
-  public treeFlattener = new MatTreeFlattener(
-    this.adaptQuery,
-    node => node.level,
-    node => node.expandable,
-    node => node.children);
-
-  public dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
-
+  public queries: Query[];
   private _selectedQueryId: string;
   private readonly _queryFieldKey = 'QueryFieldKey';
 
@@ -53,24 +34,17 @@ export class QuerySelectComponent implements OnInit {
   public async ngOnInit(): Promise<void> {
     const context = this.contextFactory.create();
     const queries = await this.queryRepo.loadByProjectAsync(context.project.id);
-    // const flatQueries = new Array<Query>();
-    // queries.forEach(query => this.flatten(query, flatQueries));
+    const flatQueries = new Array<Query>();
+    queries.forEach(query => this.FilterAndflatten(query, flatQueries));
+    this.queries = flatQueries;
     this.selectedQueryId = this.localStorage.load(this._queryFieldKey) || '';
-    this.dataSource.data = queries;
   }
 
-  public hasChild = (_: number, query: Query) => !!query.children && query.children.length > 0;
+  private FilterAndflatten(query: Query, items: Query[]): void {
+    if (!query.isFolder) {
+      items.push(query);
+    }
 
-  private flatten(query: Query, items: Query[]): void {
-    items.push(query);
-    query.children.forEach(subQuery => this.flatten(subQuery, items));
-  }
-
-  private adaptQuery(query: Query, level: number): INode {
-    return {
-      expandable: !!query.children && query.children.length > 0,
-      name: query.name,
-      level: level,
-    };
+    query.children.forEach(subQuery => this.FilterAndflatten(subQuery, items));
   }
 }

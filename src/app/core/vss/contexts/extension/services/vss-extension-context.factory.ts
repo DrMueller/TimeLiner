@@ -8,6 +8,15 @@ import { VssExtensionContext } from '../models';
 
 export class VssExtensionContextFactory {
   public create(): VssExtensionContext {
+    if (typeof VSS === 'undefined') {
+      return new VssExtensionContext(
+        'DrMueller123',
+        '123',
+        '1.3.3.7',
+        'tra'
+      );
+    }
+
     const nativeContext = VSS.getExtensionContext();
     return new VssExtensionContext(
       nativeContext.publisherId,

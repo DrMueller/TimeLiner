@@ -7,8 +7,15 @@ import { VssCollection, VssProject, VssUser, VssWebContext } from '../models';
 })
 export class VssWebContextFactory {
   public create(): VssWebContext {
-    const nativeContext = VSS.getWebContext();
+    if (typeof VSS === 'undefined') {
+      return new VssWebContext(
+        new VssCollection('1', 'tra'),
+        new VssProject('1', 'tra'),
+        new VssUser('1', 'tra')
+      );
+    }
 
+    const nativeContext = VSS.getWebContext();
     return new VssWebContext(
       this.createVssCollection(nativeContext),
       this.createVssProject(nativeContext),
