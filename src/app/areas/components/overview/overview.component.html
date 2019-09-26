@@ -1,6 +1,11 @@
 <div class="overview-container">
+  <div *ngIf="showLoadingIndicator$ | async">
+    <mat-progress-bar class="toolbar-loading" mode="indeterminate" color="warn">
+    </mat-progress-bar>
+  </div>
   <div>
-    <app-calendar (calendarEventDropped)="calendarEventDropped($event)" [searchConfig]="searchConfig" [events]="events"></app-calendar>
+    <app-calendar (calendarEventDropped)="calendarEventDropped($event)" [searchConfig]="searchConfig" [events]="events">
+    </app-calendar>
   </div>
   <div>
     <app-config (dataRefreshRequested)="refreshData()" (searchConfigChanged)="searchConfigChanged($event)">
