@@ -59,7 +59,8 @@ export class QuerySelectComponent implements OnInit {
     this.dataSource.data = queries;
   }
 
-  public hasChild(_: number, node: INode): boolean {
+  public hasChild(node: INode): boolean {
+    debugger;
     return node.expandable;
   }
 
