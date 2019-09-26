@@ -53,13 +53,15 @@ export class QuerySelectComponent implements OnInit {
   public async ngOnInit(): Promise<void> {
     const context = this.contextFactory.create();
     const queries = await this.queryRepo.loadByProjectAsync(context.project.id);
-    const flatQueries = new Array<Query>();
-    queries.forEach(query => this.flatten(query, flatQueries));
+    // const flatQueries = new Array<Query>();
+    // queries.forEach(query => this.flatten(query, flatQueries));
     this.selectedQueryId = this.localStorage.load(this._queryFieldKey) || '';
-    this.dataSource.data = flatQueries;
+    this.dataSource.data = queries;
   }
 
-  hasChild = (_: number, node: INode) => node.expandable;
+  public hasChild(_: number, node: INode): boolean {
+    return node.expandable;
+  }
 
   private flatten(query: Query, items: Query[]): void {
     items.push(query);
