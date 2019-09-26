@@ -60,6 +60,7 @@ export class QuerySelectComponent implements OnInit {
   }
 
   public hasChild(node: INode): boolean {
+    // tslint:disable-next-line: no-debugger
     debugger;
     return node.expandable;
   }
