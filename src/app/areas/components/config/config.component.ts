@@ -1,7 +1,10 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { LocalStorageService } from 'src/app/core/storage/services';
+import { VssWebContextFactoryService } from 'src/app/core/vss/contexts/web/services';
+import { QueryRepositoryService } from 'src/app/core/vss/data/queries';
+import { Query } from 'src/app/core/vss/data/queries/models';
 
-import { SearchConfiguration } from '../../models';
+import { SearchConfigurationDto } from '../../dtos';
+import { SearchConfigurationStorageService } from '../../services/search-configuration-storage.service';
 
 @Component({
   selector: 'app-config',
@@ -9,8 +12,47 @@ import { SearchConfiguration } from '../../models';
   styleUrls: ['./config.component.scss']
 })
 export class ConfigComponent implements OnInit {
+  @Output() public dataRefreshRequested = new EventEmitter();
+  @Output() public searchConfigChanged = new EventEmitter<SearchConfigurationDto>();
+
+  public queries: Query[];
+  private _searchConfig: SearchConfigurationDto;
+  private _timerId: number | undefined;
+
+  public constructor(
+    private searchConfigStorage: SearchConfigurationStorageService,
+    private webContextFactory: VssWebContextFactoryService,
+    private queryRepo: QueryRepositoryService) { }
+
+  public async ngOnInit(): Promise<void> {
+    await this.loadQueriesAsync();
+    this._searchConfig = this.searchConfigStorage.load();
+  }
+
+  public get canRefresh(): boolean {
+    return !!this._searchConfig.dateFieldName && !!this._searchConfig.queryId;
+  }
+
+  public refresh(): void {
+    this.dataRefreshRequested.emit();
+  }
+
+  public get selectedQueryId(): string {
+    return this._searchConfig.queryId;
+  }
+
+  public set selectedQueryId(value: string) {
+    this._searchConfig.queryId = value;
+    this.persistConfig();
+    this.emitChange();
+  }
+
+  public get workItemDateFieldName(): string {
+    return this._searchConfig.dateFieldName;
+  }
+
   public set workItemDateFieldName(value: string) {
-    this._workItemDateFieldName = value;
+    this._searchConfig.dateFieldName = value;
     this.emitChange();
 
     if (this._timerId) {
@@ -18,47 +60,31 @@ export class ConfigComponent implements OnInit {
     }
 
     this._timerId = window.setTimeout(() => {
-      this.persistWorkItemDateFieldName();
+      this.persistConfig();
     }, 500);
   }
 
-  public get canRefresh(): boolean {
-    return !!this._workItemDateFieldName && !!this._queryId;
-  }
+  private FilterAndflatten(query: Query, items: Query[]): void {
+    if (!query.isFolder) {
+      items.push(query);
+    }
 
-  public get workItemDateFieldName(): string {
-    return this._workItemDateFieldName;
-  }
-
-  @Output() public searchConfigChanged = new EventEmitter<SearchConfiguration>();
-  @Output() public dataRefreshRequested = new EventEmitter();
-
-  private readonly _dateFieldKey = 'DateFieldKey';
-  private _timerId: number | undefined;
-  private _workItemDateFieldName: string;
-  private _queryId: string;
-
-  public constructor(
-    private localStorage: LocalStorageService) { }
-
-  public ngOnInit(): void {
-    this.workItemDateFieldName = this.localStorage.load(this._dateFieldKey) || '';
-  }
-
-  public selectedQueryIdChanged(queryId: string): void {
-    this._queryId = queryId;
-    this.emitChange();
-  }
-
-  public refresh(): void {
-    this.dataRefreshRequested.emit();
+    query.children.forEach(subQuery => this.FilterAndflatten(subQuery, items));
   }
 
   private emitChange(): void {
-    this.searchConfigChanged.emit(new SearchConfiguration(this._queryId, this._workItemDateFieldName));
+    this.searchConfigChanged.emit(this._searchConfig);
   }
 
-  private persistWorkItemDateFieldName(): void {
-    this.localStorage.save(this._dateFieldKey, this._workItemDateFieldName);
+  private persistConfig(): void {
+    this.searchConfigStorage.save(this._searchConfig);
+  }
+
+  private async loadQueriesAsync(): Promise<void> {
+    const context = this.webContextFactory.create();
+    const queries = await this.queryRepo.loadByProjectAsync(context.project.id);
+    const flatQueries = new Array<Query>();
+    queries.forEach(query => this.FilterAndflatten(query, flatQueries));
+    this.queries = flatQueries;
   }
 }

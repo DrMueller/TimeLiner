@@ -3,7 +3,8 @@ import { Observable } from 'rxjs';
 import { BusyIndicatorService } from 'src/app/core/loading-indication/services';
 import { SnackBarService } from 'src/app/core/snack-bar/services';
 
-import { CalendarEvent, DroppedCalendarEvent, SearchConfiguration } from '../../models';
+import { SearchConfigurationDto } from '../../dtos';
+import { CalendarEvent, DroppedCalendarEvent } from '../../models';
 import { CalendarEventDataService } from '../../services/calendar-event-data.service';
 
 @Component({
@@ -13,7 +14,7 @@ import { CalendarEventDataService } from '../../services/calendar-event-data.ser
 })
 export class OverviewComponent {
   public events: CalendarEvent[] = [];
-  public searchConfig: SearchConfiguration;
+  public searchConfig: SearchConfigurationDto;
 
   public constructor(
     private calendarEventDataService: CalendarEventDataService,
@@ -26,7 +27,7 @@ export class OverviewComponent {
   }
 
   public async refreshData(): Promise<void> {
-    if (this.searchConfig && this.searchConfig.isValid) {
+    if (this.searchConfig && this.searchConfig.dateFieldName && this.searchConfig.queryId) {
       await this.busyIndicator.withBusyIndicator(async () => {
         this.events = await this.calendarEventDataService.searchEventsAsync(this.searchConfig);
       });
@@ -46,7 +47,7 @@ export class OverviewComponent {
     this.snackbarService.showSnackBar(`Work Item ${droppedEvent.workItemId} saved`);
   }
 
-  public async searchConfigChanged(config: SearchConfiguration): Promise<void> {
+  public async searchConfigChanged(config: SearchConfigurationDto): Promise<void> {
     setTimeout(async () => {
       this.searchConfig = config;
     });

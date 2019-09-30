@@ -3,7 +3,8 @@ import { WorkItem } from 'src/app/core/vss/data/work-items/models';
 import { WorkItemRepositoryService } from 'src/app/core/vss/data/work-items/repos';
 import { FunctionResult } from 'src/app/utils/types';
 
-import { CalendarEvent, CalendarEventColors, SearchConfiguration } from '../models';
+import { SearchConfigurationDto } from '../dtos';
+import { CalendarEvent, CalendarEventColors } from '../models';
 
 import { CalendarEventColorFactoryService } from './factories';
 
@@ -22,7 +23,7 @@ export class CalendarEventDataService {
     await this.workItemRepo.updateAsync(workItem);
   }
 
-  public async searchEventsAsync(searchConfig: SearchConfiguration): Promise<CalendarEvent[]> {
+  public async searchEventsAsync(searchConfig: SearchConfigurationDto): Promise<CalendarEvent[]> {
     const workItems = await this.workItemRepo.loadByQueryAsync(searchConfig.queryId);
     if (workItems.length === 0) {
       return new Array<CalendarEvent>();

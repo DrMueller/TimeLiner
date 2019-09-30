@@ -6,7 +6,11 @@
   <div class="config-container-item">
     <div class="config-entries-container">
       <div class="config-entries-container-item">
-        <app-query-select (selectedQueryIdChanged)="selectedQueryIdChanged($event)"></app-query-select>
+        <mat-select class="query-select" [(ngModel)]="selectedQueryId">
+          <mat-option *ngFor="let query of queries" [value]="query.id">
+            {{query.name}}
+          </mat-option>
+        </mat-select>
       </div>
       <div class="config-entries-container-item">
         <input matInput type="text" [(ngModel)]="workItemDateFieldName" placeholder="Date field name">

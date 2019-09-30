@@ -8,7 +8,6 @@ import { AboutComponent } from 'src/app/areas/components/about';
 import { CalendarComponent } from 'src/app/areas/components/calendar';
 import { ConfigComponent } from 'src/app/areas/components/config';
 import { OverviewComponent } from 'src/app/areas/components/overview';
-import { QuerySelectComponent } from 'src/app/areas/components/query-select';
 import { MatDependenciesModule } from 'src/app/mat-deps';
 import { BusyIndicationModule } from 'src/app/shared/busy-indication/busy-indication.module';
 
@@ -22,7 +21,6 @@ import { AppComponent } from './app.component';
     AppComponent,
     OverviewComponent,
     CalendarComponent,
-    QuerySelectComponent,
     ConfigComponent
   ],
   imports: [
