@@ -36,7 +36,7 @@ export class CalendarComponent {
   };
 
   public get isEditable(): boolean {
-    return !!this.searchConfig.dateFieldName && !!this.searchConfig.queryId;
+    return !!this.searchConfig && !!this.searchConfig.dateFieldName && !!this.searchConfig.queryId;
   }
 
   public constructor(
