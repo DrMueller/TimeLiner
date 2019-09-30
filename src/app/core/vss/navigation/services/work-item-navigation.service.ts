@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 
-import { VssWebContextFactory } from '../../contexts/web/services';
+import { VssWebContextFactoryService } from '../../contexts/web/services';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WorkItemNavigationService {
-  public constructor(private webContextFactory: VssWebContextFactory) { }
+  public constructor(private webContextFactory: VssWebContextFactoryService) { }
 
   public navigateToEdit(workItemId: number): void {
     const url = this.createEditUrl(workItemId);

@@ -1,22 +1,28 @@
 import { Injectable } from '@angular/core';
 import { WorkItem } from 'src/app/core/vss/data/work-items/models';
-import { WorkItemRepo } from 'src/app/core/vss/data/work-items/repos';
+import { WorkItemRepositoryService } from 'src/app/core/vss/data/work-items/repos';
 import { FunctionResult } from 'src/app/utils/types';
 
 import { CalendarEvent, CalendarEventColors, SearchConfiguration } from '../models';
 
-import { CalendarEventColorFactory } from './factories';
+import { CalendarEventColorFactoryService } from './factories';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CalendarEventRepo {
+export class CalendarEventDataService {
   public constructor(
-    private workItemRepo: WorkItemRepo,
-    private colorFactory: CalendarEventColorFactory) {
+    private workItemRepo: WorkItemRepositoryService,
+    private colorFactory: CalendarEventColorFactoryService) {
   }
 
-  public async loadEventsAsync(searchConfig: SearchConfiguration): Promise<CalendarEvent[]> {
+  public async updateWorkItemWithNewDateAsync(workItemId: number, dateFieldName: string, date: Date): Promise<void> {
+    const workItem = await this.workItemRepo.loadByIdAsync(workItemId);
+    workItem.updateField(dateFieldName, date);
+    await this.workItemRepo.updateAsync(workItem);
+  }
+
+  public async searchEventsAsync(searchConfig: SearchConfiguration): Promise<CalendarEvent[]> {
     const workItems = await this.workItemRepo.loadByQueryAsync(searchConfig.queryId);
     if (workItems.length === 0) {
       return new Array<CalendarEvent>();

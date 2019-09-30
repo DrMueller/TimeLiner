@@ -7,7 +7,7 @@ import { JsonPatchDocument, Operation } from '../models';
 @Injectable({
   providedIn: 'root'
 })
-export class WorkItemAdapter {
+export class WorkItemAdapterService {
   public adaptToModel(nativeWorkItem: nat.WorkItem): WorkItem {
     const fields = this.adaptFields(nativeWorkItem.fields);
     return new WorkItem(nativeWorkItem.id, fields);

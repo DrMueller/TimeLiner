@@ -6,7 +6,7 @@ import { WorkItemType } from '../../models';
 @Injectable({
   providedIn: 'root'
 })
-export class WorkItemTypeAdapter {
+export class WorkItemTypeAdapterService {
   public adapt(nativeType: nat.WorkItemType): WorkItemType {
     return new WorkItemType(nativeType.name, nativeType.color);
   }

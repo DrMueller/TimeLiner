@@ -1,19 +1,18 @@
 import { Injectable } from '@angular/core';
 import { ColorService } from 'src/app/core/colors/services';
-import { VssWebContextFactory } from 'src/app/core/vss/contexts/web/services';
+import { VssWebContextFactoryService } from 'src/app/core/vss/contexts/web/services';
 import { WorkItemType } from 'src/app/core/vss/data/work-items/models';
-import { WorkItemTypeRepo } from 'src/app/core/vss/data/work-items/repos';
+import { WorkItemTypeRepositoryService } from 'src/app/core/vss/data/work-items/repos';
 
 import { CalendarEventColors } from '../../models';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CalendarEventColorFactory {
-
+export class CalendarEventColorFactoryService {
   public constructor(
-    private workItemTypeRepo: WorkItemTypeRepo,
-    private webContextFactory: VssWebContextFactory,
+    private workItemTypeRepo: WorkItemTypeRepositoryService,
+    private webContextFactory: VssWebContextFactoryService,
     private colorService: ColorService) { }
 
   public async createAllColorsAsync(): Promise<CalendarEventColors[]> {

@@ -1,2 +1,2 @@
-export * from './work-item.adapter';
-export * from './work-item-type.adapter';
+export * from './work-item-type-adapter.service';
+export * from './work-item-adapter.service';

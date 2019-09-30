@@ -7,8 +7,8 @@ import { WorkItemTrackingHttpClient } from 'TFS/WorkItemTracking/RestClient';
 @Injectable({
   providedIn: 'root'
 })
-export class ProxyFactory {
-  public createWorkItemTrackingClientAsync(): Promise<WorkItemTrackingHttpClient> {
+export class HttpClientFactoryService {
+  public createForWorkItemTrackingAsync(): Promise<WorkItemTrackingHttpClient> {
     return new Promise((resolve: any, _: any) => {
       VSS.require(['TFS/WorkItemTracking/RestClient'], (wit: any) => {
         const client = <WorkItemTrackingHttpClient>wit.getClient();

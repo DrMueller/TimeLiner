@@ -1,8 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { LocalStorageService } from 'src/app/core/storage/services';
-import { VssWebContextFactory } from 'src/app/core/vss/contexts/web/services/vss-web-context.factory';
+import { VssWebContextFactoryService } from 'src/app/core/vss/contexts/web/services';
+import { QueryRepositoryService } from 'src/app/core/vss/data/queries';
 import { Query } from 'src/app/core/vss/data/queries/models';
-import { QueryRepo } from 'src/app/core/vss/data/queries/query.repo';
 
 @Component({
   selector: 'app-query-select',
@@ -27,12 +27,12 @@ export class QuerySelectComponent implements OnInit {
   private readonly _queryFieldKey = 'QueryFieldKey';
 
   public constructor(
-    private contextFactory: VssWebContextFactory,
+    private webContextFactory: VssWebContextFactoryService,
     private localStorage: LocalStorageService,
-    private queryRepo: QueryRepo) { }
+    private queryRepo: QueryRepositoryService) { }
 
   public async ngOnInit(): Promise<void> {
-    const context = this.contextFactory.create();
+    const context = this.webContextFactory.create();
     const queries = await this.queryRepo.loadByProjectAsync(context.project.id);
     const flatQueries = new Array<Query>();
     queries.forEach(query => this.FilterAndflatten(query, flatQueries));

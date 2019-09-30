@@ -1,2 +1,2 @@
-export * from './work-item.repo';
-export * from './work-item-type.repo';
+export * from './work-item-type-repository.service';
+export * from './work-item-repository.service';

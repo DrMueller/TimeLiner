@@ -6,6 +6,7 @@ export class WorkItemField {
   public get isDirty(): boolean {
     return this._isDirty;
   }
+
   private _isDirty = false;
 
   public constructor(

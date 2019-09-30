@@ -4,22 +4,21 @@
 import { Injectable } from '@angular/core';
 import { WorkItemTrackingHttpClient } from 'TFS/WorkItemTracking/RestClient';
 
-import { ProxyFactory } from '../../common';
-import { WorkItemAdapter } from '../data-modeling/adapters';
+import { HttpClientFactoryService } from '../../common';
+import { WorkItemAdapterService } from '../data-modeling/adapters/work-item-adapter.service';
 import { WorkItem } from '../models';
 
 @Injectable({
   providedIn: 'root'
 })
-
-export class WorkItemRepo {
+export class WorkItemRepositoryService {
   public constructor(
-    private proxyFactory: ProxyFactory,
-    private adapter: WorkItemAdapter) {
+    private httpClientFactory: HttpClientFactoryService,
+    private adapter: WorkItemAdapterService) {
   }
 
   public async updateAsync(workItem: WorkItem): Promise<void> {
-    const client = await this.proxyFactory.createWorkItemTrackingClientAsync();
+    const client = await this.httpClientFactory.createForWorkItemTrackingAsync();
     const patchDocuments = this.adapter.adaptToPatchDocuments(workItem);
 
     if (patchDocuments.length === 0) {
@@ -30,18 +29,18 @@ export class WorkItemRepo {
   }
 
   public async loadByIdsAsync(ids: number[]): Promise<WorkItem[]> {
-    const client = await this.proxyFactory.createWorkItemTrackingClientAsync();
+    const client = await this.httpClientFactory.createForWorkItemTrackingAsync();
     return await this.loadAndMapWorkItemsAsync(client, ...ids);
   }
 
   public async loadByIdAsync(id: number): Promise<WorkItem> {
-    const client = await this.proxyFactory.createWorkItemTrackingClientAsync();
+    const client = await this.httpClientFactory.createForWorkItemTrackingAsync();
     const workItems = await this.loadAndMapWorkItemsAsync(client, id);
     return workItems[0];
   }
 
   public async loadByQueryAsync(queryId: string): Promise<WorkItem[]> {
-    const client = await this.proxyFactory.createWorkItemTrackingClientAsync();
+    const client = await this.httpClientFactory.createForWorkItemTrackingAsync();
     const queryResult = await client.queryById(queryId);
     const workItemIds = queryResult.workItems.map(wi => wi.id);
     return await this.loadAndMapWorkItemsAsync(client, ...workItemIds);

@@ -1,1 +1,1 @@
-export * from './event-data.service';
+export * from './calendar-event-data.service';

@@ -5,7 +5,7 @@ import { VssCollection, VssProject, VssUser, VssWebContext } from '../models';
 @Injectable({
   providedIn: 'root'
 })
-export class VssWebContextFactory {
+export class VssWebContextFactoryService {
   public create(): VssWebContext {
     if (typeof VSS === 'undefined') {
       return new VssWebContext(

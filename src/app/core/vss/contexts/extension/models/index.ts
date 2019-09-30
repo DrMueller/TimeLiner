@@ -1,1 +1,1 @@
-export * from './vss-extension-context';
+export * from './vss-extension-context.model';

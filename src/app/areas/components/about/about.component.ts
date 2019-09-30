@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { VssExtensionContextFactory } from 'src/app/core/vss/contexts/extension/services';
+import { VssExtensionContextFactoryService } from 'src/app/core/vss/contexts/extension/services';
 
 @Component({
   selector: 'app-about',
@@ -9,7 +9,7 @@ import { VssExtensionContextFactory } from 'src/app/core/vss/contexts/extension/
 export class AboutComponent implements OnInit {
   public versionDescription: string;
 
-  public constructor(private extensionContextFactory: VssExtensionContextFactory) { }
+  public constructor(private extensionContextFactory: VssExtensionContextFactoryService) { }
 
   public ngOnInit(): void {
     const extContext = this.extensionContextFactory.create();

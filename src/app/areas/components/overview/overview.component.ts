@@ -4,8 +4,7 @@ import { BusyIndicatorService } from 'src/app/core/loading-indication/services';
 import { SnackBarService } from 'src/app/core/snack-bar/services';
 
 import { CalendarEvent, DroppedCalendarEvent, SearchConfiguration } from '../../models';
-import { CalendarEventRepo } from '../../repos';
-import { EventDataService } from '../../services';
+import { CalendarEventDataService } from '../../services/calendar-event-data.service';
 
 @Component({
   selector: 'app-overview',
@@ -17,8 +16,7 @@ export class OverviewComponent {
   public searchConfig: SearchConfiguration;
 
   public constructor(
-    private eventRepo: CalendarEventRepo,
-    private dataService: EventDataService,
+    private calendarEventDataService: CalendarEventDataService,
     private busyIndicator: BusyIndicatorService,
     private snackbarService: SnackBarService) {
   }
@@ -30,7 +28,7 @@ export class OverviewComponent {
   public async refreshData(): Promise<void> {
     if (this.searchConfig && this.searchConfig.isValid) {
       await this.busyIndicator.withBusyIndicator(async () => {
-        this.events = await this.eventRepo.loadEventsAsync(this.searchConfig);
+        this.events = await this.calendarEventDataService.searchEventsAsync(this.searchConfig);
       });
 
       this.snackbarService.showSnackBar('Data loaded');
@@ -39,7 +37,7 @@ export class OverviewComponent {
 
   public async calendarEventDropped(droppedEvent: DroppedCalendarEvent): Promise<void> {
     await this.busyIndicator.withBusyIndicator(async () => {
-      await this.dataService.updateWorkItemWithNewDateAsync(
+      await this.calendarEventDataService.updateWorkItemWithNewDateAsync(
         droppedEvent.workItemId,
         this.searchConfig.dateFieldName,
         droppedEvent.newDate);

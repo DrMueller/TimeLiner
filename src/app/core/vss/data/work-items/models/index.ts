@@ -1,3 +1,3 @@
-export * from './work-item-type';
-export * from './work-item-field';
-export * from './work-item';
+export * from './work-item.model';
+export * from './work-item-type.model';
+export * from './work-item-field.model';

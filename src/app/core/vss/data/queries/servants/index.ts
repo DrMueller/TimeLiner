@@ -1,1 +1,1 @@
-export * from './query.adapter';
+export * from './query-adapter.service';

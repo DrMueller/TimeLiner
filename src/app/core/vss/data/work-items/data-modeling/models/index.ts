@@ -1,2 +1,2 @@
-export * from './operation';
-export * from './json-patch-document';
+export * from './operation.model';
+export * from './json-patch-document.model';

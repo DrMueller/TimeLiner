@@ -1,1 +1,1 @@
-export * from './vss-web-context.factory';
+export * from './vss-web-context-factory.service';
