@@ -16,7 +16,7 @@ export class ConfigComponent implements OnInit {
   @Output() public searchConfigChanged = new EventEmitter<SearchConfigurationDto>();
 
   public queries: Query[];
-  private _searchConfig: SearchConfigurationDto;
+  private _searchConfig: SearchConfigurationDto = new SearchConfigurationDto('', '');
   private _timerId: number | undefined;
 
   public constructor(
