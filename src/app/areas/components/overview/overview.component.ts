@@ -49,7 +49,6 @@ export class OverviewComponent {
   public async searchConfigChanged(config: SearchConfiguration): Promise<void> {
     setTimeout(async () => {
       this.searchConfig = config;
-      await this.refreshData();
     });
   }
 }
