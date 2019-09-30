@@ -4,17 +4,14 @@ import { FunctionResult } from 'src/app/utils/types';
 import { WorkItemField } from '.';
 
 export class WorkItem {
-  public constructor(
-    public readonly id: number,
-    private readonly fields: WorkItemField[]) {
-  }
-
-  public get title(): string {
-    return this.findField('System.Title').result!.value;
-  }
 
   public get workItemTypeDescription(): string {
     return this.findField('System.WorkItemType').result!.value;
+  }
+
+  public constructor(
+    public readonly id: number,
+    private readonly fields: WorkItemField[]) {
   }
 
   public findField(name: string): FunctionResult<WorkItemField> {
@@ -27,6 +24,10 @@ export class WorkItem {
     return FunctionResult.createSuccess(fieldCopy);
   }
 
+  public getDirtyFields(): WorkItemField[] {
+    return this.fields.filter(f => f.isDirty);
+  }
+
   public updateField(name: string, newValue: any): void {
     const field = this.fields.find(f => f.name === name);
     if (field) {
@@ -34,7 +35,8 @@ export class WorkItem {
     }
   }
 
-  public getDirtyFields(): WorkItemField[] {
-    return this.fields.filter(f => f.isDirty);
+  // HelloWorld Test
+  public get title(): string {
+    return this.findField('System.Title').result!.value;
   }
 }

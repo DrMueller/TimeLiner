@@ -38,6 +38,10 @@ export class CustomErrorHandlerService extends ErrorHandler {
     this.showErrorDialog(errorInformation);
   }
 
+  private checkIsSameAsPreviousError(error: any): boolean {
+    return this._previousError && error.stack === this._previousError.stack && error.message === this._previousError.message;
+  }
+
   private showErrorDialog(errorInformation: ErrorInformation): void {
     const config = new MatDialogConfig();
     config.data = errorInformation;
@@ -46,9 +50,5 @@ export class CustomErrorHandlerService extends ErrorHandler {
     this.ngZone.run(() => {
       this.dialog.open(ErrorDisplayComponent, config);
     });
-  }
-
-  private checkIsSameAsPreviousError(error: any): boolean {
-    return this._previousError && error.stack === this._previousError.stack && error.message === this._previousError.message;
   }
 }

@@ -29,15 +29,15 @@ export class VssWebContextFactoryService {
       nativeContext.collection.name);
   }
 
-  private createVssUser(nativeContext: WebContext): VssUser {
-    return new VssUser(
-      nativeContext.user.id,
-      nativeContext.user.name);
-  }
-
   private createVssProject(nativeContext: WebContext): VssProject {
     return new VssProject(
       nativeContext.project.id,
       nativeContext.project.name);
+  }
+
+  private createVssUser(nativeContext: WebContext): VssUser {
+    return new VssUser(
+      nativeContext.user.id,
+      nativeContext.user.name);
   }
 }

@@ -12,29 +12,8 @@ import { SearchConfigurationStorageService } from '../../services/search-configu
   styleUrls: ['./config.component.scss']
 })
 export class ConfigComponent implements OnInit {
-  @Output() public dataRefreshRequested = new EventEmitter();
-  @Output() public searchConfigChanged = new EventEmitter<SearchConfigurationDto>();
-
-  public queries: Query[];
-  private _searchConfig: SearchConfigurationDto = new SearchConfigurationDto('', '');
-  private _timerId: number | undefined;
-
-  public constructor(
-    private searchConfigStorage: SearchConfigurationStorageService,
-    private webContextFactory: VssWebContextFactoryService,
-    private queryRepo: QueryRepositoryService) { }
-
-  public async ngOnInit(): Promise<void> {
-    await this.loadQueriesAsync();
-    this._searchConfig = this.searchConfigStorage.load();
-  }
-
   public get canRefresh(): boolean {
     return !!this._searchConfig.dateFieldName && !!this._searchConfig.queryId;
-  }
-
-  public refresh(): void {
-    this.dataRefreshRequested.emit();
   }
 
   public get selectedQueryId(): string {
@@ -64,6 +43,31 @@ export class ConfigComponent implements OnInit {
     }, 500);
   }
 
+  @Output() public dataRefreshRequested = new EventEmitter();
+  public queries: Query[];
+  @Output() public searchConfigChanged = new EventEmitter<SearchConfigurationDto>();
+
+  private _searchConfig: SearchConfigurationDto = new SearchConfigurationDto('', '');
+  private _timerId: number | undefined;
+
+  public constructor(
+    private searchConfigStorage: SearchConfigurationStorageService,
+    private webContextFactory: VssWebContextFactoryService,
+    private queryRepo: QueryRepositoryService) { }
+
+  public async ngOnInit(): Promise<void> {
+    await this.loadQueriesAsync();
+    this._searchConfig = this.searchConfigStorage.load();
+  }
+
+  public refresh(): void {
+    this.dataRefreshRequested.emit();
+  }
+
+  private emitChange(): void {
+    this.searchConfigChanged.emit(this._searchConfig);
+  }
+
   private FilterAndflatten(query: Query, items: Query[]): void {
     if (!query.isFolder) {
       items.push(query);
@@ -72,19 +76,15 @@ export class ConfigComponent implements OnInit {
     query.children.forEach(subQuery => this.FilterAndflatten(subQuery, items));
   }
 
-  private emitChange(): void {
-    this.searchConfigChanged.emit(this._searchConfig);
-  }
-
-  private persistConfig(): void {
-    this.searchConfigStorage.save(this._searchConfig);
-  }
-
   private async loadQueriesAsync(): Promise<void> {
     const context = this.webContextFactory.create();
     const queries = await this.queryRepo.loadByProjectAsync(context.project.id);
     const flatQueries = new Array<Query>();
     queries.forEach(query => this.FilterAndflatten(query, flatQueries));
     this.queries = flatQueries;
+  }
+
+  private persistConfig(): void {
+    this.searchConfigStorage.save(this._searchConfig);
   }
 }

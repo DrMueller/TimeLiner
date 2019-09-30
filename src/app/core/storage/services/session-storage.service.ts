@@ -4,11 +4,6 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class SessionStorageService {
-  public save<T>(key: string, item: T): void {
-    const serializedItem = JSON.stringify(item);
-    sessionStorage.setItem(key, serializedItem);
-  }
-
   public load<T>(key: string): T | null {
     const item = sessionStorage.getItem(key);
     if (item == null) {
@@ -17,5 +12,10 @@ export class SessionStorageService {
 
     const deserializedItem = JSON.parse(item);
     return deserializedItem;
+  }
+
+  public save<T>(key: string, item: T): void {
+    const serializedItem = JSON.stringify(item);
+    sessionStorage.setItem(key, serializedItem);
   }
 }

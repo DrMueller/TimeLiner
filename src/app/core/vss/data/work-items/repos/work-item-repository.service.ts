@@ -17,6 +17,24 @@ export class WorkItemRepositoryService {
     private adapter: WorkItemAdapterService) {
   }
 
+  public async loadByIdAsync(id: number): Promise<WorkItem> {
+    const client = await this.httpClientFactory.createForWorkItemTrackingAsync();
+    const workItems = await this.loadAndMapWorkItemsAsync(client, id);
+    return workItems[0];
+  }
+
+  public async loadByIdsAsync(ids: number[]): Promise<WorkItem[]> {
+    const client = await this.httpClientFactory.createForWorkItemTrackingAsync();
+    return await this.loadAndMapWorkItemsAsync(client, ...ids);
+  }
+
+  public async loadByQueryAsync(queryId: string): Promise<WorkItem[]> {
+    const client = await this.httpClientFactory.createForWorkItemTrackingAsync();
+    const queryResult = await client.queryById(queryId);
+    const workItemIds = queryResult.workItems.map(wi => wi.id);
+    return await this.loadAndMapWorkItemsAsync(client, ...workItemIds);
+  }
+
   public async updateAsync(workItem: WorkItem): Promise<void> {
     const client = await this.httpClientFactory.createForWorkItemTrackingAsync();
     const patchDocuments = this.adapter.adaptToPatchDocuments(workItem);
@@ -26,24 +44,6 @@ export class WorkItemRepositoryService {
     }
 
     await client.updateWorkItem(patchDocuments, workItem.id);
-  }
-
-  public async loadByIdsAsync(ids: number[]): Promise<WorkItem[]> {
-    const client = await this.httpClientFactory.createForWorkItemTrackingAsync();
-    return await this.loadAndMapWorkItemsAsync(client, ...ids);
-  }
-
-  public async loadByIdAsync(id: number): Promise<WorkItem> {
-    const client = await this.httpClientFactory.createForWorkItemTrackingAsync();
-    const workItems = await this.loadAndMapWorkItemsAsync(client, id);
-    return workItems[0];
-  }
-
-  public async loadByQueryAsync(queryId: string): Promise<WorkItem[]> {
-    const client = await this.httpClientFactory.createForWorkItemTrackingAsync();
-    const queryResult = await client.queryById(queryId);
-    const workItemIds = queryResult.workItems.map(wi => wi.id);
-    return await this.loadAndMapWorkItemsAsync(client, ...workItemIds);
   }
 
   private async loadAndMapWorkItemsAsync(client: WorkItemTrackingHttpClient, ...ids: number[]): Promise<WorkItem[]> {

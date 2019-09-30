@@ -12,21 +12,9 @@ import { CalendarEvent, DroppedCalendarEvent } from '../../models';
   styleUrls: ['./calendar.component.scss']
 })
 export class CalendarComponent {
-  @Output() public calendarEventDropped = new EventEmitter<DroppedCalendarEvent>();
-  @Input() public searchConfig: SearchConfigurationDto;
-
-  @Input() public events: CalendarEvent[] = [];
-  public calendarPlugins = [
-    dayGridPlugin,
-    interactionPlugin
-  ];
-
-  public buttonText = {
-    prev: '<',
-    next: '>',
-    prevYear: '<<',
-    nextYear: '>>'
-  };
+  public get isEditable(): boolean {
+    return !!this.searchConfig && !!this.searchConfig.dateFieldName && !!this.searchConfig.queryId;
+  }
 
   public buttonIcons = {
     prev: '',
@@ -35,9 +23,22 @@ export class CalendarComponent {
     nextYear: ''
   };
 
-  public get isEditable(): boolean {
-    return !!this.searchConfig && !!this.searchConfig.dateFieldName && !!this.searchConfig.queryId;
-  }
+  public buttonText = {
+    prev: '<',
+    next: '>',
+    prevYear: '<<',
+    nextYear: '>>'
+  };
+
+  @Output() public calendarEventDropped = new EventEmitter<DroppedCalendarEvent>();
+
+  public calendarPlugins = [
+    dayGridPlugin,
+    interactionPlugin
+  ];
+
+  @Input() public events: CalendarEvent[] = [];
+  @Input() public searchConfig: SearchConfigurationDto;
 
   public constructor(
     private workItemNavigator: WorkItemNavigationService) { }

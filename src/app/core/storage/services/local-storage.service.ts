@@ -4,11 +4,6 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class LocalStorageService {
-  public save<T>(key: string, item: T): void {
-    const serializedItem = JSON.stringify(item);
-    localStorage.setItem(key, serializedItem);
-  }
-
   public load<T>(key: string): T | null {
     const item = localStorage.getItem(key);
     if (item == null) {
@@ -17,5 +12,10 @@ export class LocalStorageService {
 
     const deserializedItem = JSON.parse(item);
     return deserializedItem;
+  }
+
+  public save<T>(key: string, item: T): void {
+    const serializedItem = JSON.stringify(item);
+    localStorage.setItem(key, serializedItem);
   }
 }
