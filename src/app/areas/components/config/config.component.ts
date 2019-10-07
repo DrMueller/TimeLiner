@@ -58,6 +58,7 @@ export class ConfigComponent implements OnInit {
   public async ngOnInit(): Promise<void> {
     await this.loadQueriesAsync();
     this._searchConfig = this.searchConfigStorage.load();
+    this.emitChange();
   }
 
   public refresh(): void {
@@ -65,6 +66,7 @@ export class ConfigComponent implements OnInit {
   }
 
   private emitChange(): void {
+    console.log(`emitting change ${JSON.stringify(this._searchConfig)}`);
     this.searchConfigChanged.emit(this._searchConfig);
   }
 

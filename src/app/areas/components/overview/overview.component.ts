@@ -38,6 +38,7 @@ export class OverviewComponent {
   }
 
   public async refreshData(): Promise<void> {
+    console.log(`refreshData ${JSON.stringify(this.searchConfig)}`);
     if (this.searchConfig && this.searchConfig.dateFieldName && this.searchConfig.queryId) {
       await this.busyIndicator.withBusyIndicator(async () => {
         this.events = await this.calendarEventDataService.searchEventsAsync(this.searchConfig);
@@ -48,6 +49,7 @@ export class OverviewComponent {
   }
 
   public async searchConfigChanged(config: SearchConfigurationDto): Promise<void> {
+    console.log(`searchConfigChanged change ${JSON.stringify(config)}`);
     setTimeout(async () => {
       this.searchConfig = config;
     });
