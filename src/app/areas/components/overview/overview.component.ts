@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BusyIndicatorService } from 'src/app/core/loading-indication/services';
 import { SnackBarService } from 'src/app/core/snack-bar/services';
@@ -12,7 +12,7 @@ import { CalendarEventDataService } from '../../services/calendar-event-data.ser
   templateUrl: './overview.component.html',
   styleUrls: ['./overview.component.scss']
 })
-export class OverviewComponent {
+export class OverviewComponent implements OnInit {
   public get showLoadingIndicator$(): Observable<boolean> {
     return this.busyIndicator.showBusyIndicator$;
   }
@@ -36,9 +36,11 @@ export class OverviewComponent {
 
     this.snackbarService.showSnackBar(`Work Item ${droppedEvent.workItemId} saved`);
   }
+  public ngOnInit(): void {
+    this.refreshData();
+  }
 
   public async refreshData(): Promise<void> {
-    console.log(`refreshData ${JSON.stringify(this.searchConfig)}`);
     if (this.searchConfig && this.searchConfig.dateFieldName && this.searchConfig.queryId) {
       await this.busyIndicator.withBusyIndicator(async () => {
         this.events = await this.calendarEventDataService.searchEventsAsync(this.searchConfig);
@@ -49,7 +51,6 @@ export class OverviewComponent {
   }
 
   public async searchConfigChanged(config: SearchConfigurationDto): Promise<void> {
-    console.log(`searchConfigChanged change ${JSON.stringify(config)}`);
     setTimeout(async () => {
       this.searchConfig = config;
     });

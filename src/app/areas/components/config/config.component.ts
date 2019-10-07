@@ -66,7 +66,6 @@ export class ConfigComponent implements OnInit {
   }
 
   private emitChange(): void {
-    console.log(`emitting change ${JSON.stringify(this._searchConfig)}`);
     this.searchConfigChanged.emit(this._searchConfig);
   }
 
